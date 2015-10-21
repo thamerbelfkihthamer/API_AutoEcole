@@ -10,6 +10,7 @@ use autoecole\Vehicules;
 //use Illuminate\Http\Request;
 use autoecole\Http\Requests;
 use autoecole\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 use Input;
 use Request;
 
@@ -79,6 +80,10 @@ class CoursController extends Controller
             ]);
         }
 */
+
+        $client_ids=array(1,2);
+        $cour = Cours::find(1);
+        $cour->clients()->attach($client_ids);
     }
 
     /**
@@ -143,13 +148,24 @@ class CoursController extends Controller
     public function send(){
 
         if (Request::ajax()) {
-            /* Ton traitement ici */
             $data  =  Input::all();
-            Cours::create($data);
-            return response()->json([
-                'success' => $data,
-            ]);
+            $type=$data['type'];
+            $client_id = $data['client_id'];
+            if($type=="conduite"){
+                $conduitdata = Input::only('type','vehicules_id','starttime','endtime');
+                $id = DB::table('cours')->insertGetId($conduitdata);
+                $cour = Cours::find($id);
+                $cour->clients()->attach($client_id);
+                return response()->json([
+                    'success' => $id,
+                ]);
+            }
+
+            if($type=="code"){
+
+            }
         }
+
 
     }
 

@@ -242,12 +242,12 @@
                             $("#selectcar").on('change',function(){
                                 var optionselected = $(this).find("option:selected");
                                 vehicule_id = optionselected.val();
+                                console.log(vehicule_id);
                             });
 
                             $("#selectcondidatconduite").on('change',function(){
                                 var optionselected = $(this).find("option:selected");
                                 condidat_id = optionselected.val();
-                                console.log(condidat_id);
                             });
                             $("#selectprof").on('change',function(){
                                 var optionselected = $(this).find("option:selected");
@@ -269,13 +269,14 @@
                                     $('#calendar').fullCalendar('renderEvent', eventData, false); // stick? = true
                                     $('#calendar').fullCalendar('unselect');
                                     // insertion de nouvelle cour
-                                    if(typecour !=="conduite"){
+                                    if(typecour ==="conduite"){
                                         var formDate= {
                                             'type' : typecour,
                                             'vehicules_id':vehicule_id,
+                                            'client_id':condidat_id,
                                             'starttime':start.format(),
                                             'endtime': end.format(),
-                                            _token: "<?= csrf_token()?>",
+                                            '_token': "<?= csrf_token()?>",
                                         }
                                     }else{
                                         var formDate= {
@@ -297,6 +298,7 @@
                                         swal(       'Save!',       'Your Cour done.',       'success'     );
                                     }).fail(function(data){
                                         sweetAlert('Oops...', 'Something went wrong !', 'error');
+                                        console.log(data);
                                     });
                                 }else{
 

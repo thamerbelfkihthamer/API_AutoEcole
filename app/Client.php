@@ -31,7 +31,7 @@ class Client extends Model
     }
 
     public function cours(){
-        return $this->belongsToMany('autoecole\Cours','Client_Cours','client_id','cour_id');
+        return $this->belongsToMany('autoecole\Cours','Client_Cours','client_id','cours_id');
     }
 
 }

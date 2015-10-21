@@ -22,6 +22,6 @@ class Cours extends Model
     }
 
     public function clients(){
-        return $this->belongsToMany('autoecole\Client','Client_Cours','cour_id','client_id');
+        return $this->belongsToMany('autoecole\Client','Client_Cours','cours_id','client_id');
     }
 }
