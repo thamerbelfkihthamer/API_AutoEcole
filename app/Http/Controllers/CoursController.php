@@ -32,16 +32,12 @@ class CoursController extends Controller
         $clients = Client::all();
         $car = Vehicules::all();
         $moniteurs = Moniteur::all();
-       return view('admin.cours.index')->with(array('cours'=> $cours,'clients'=> $clients,'cars'=>$car,'moniteurs'=>$moniteurs));
-
-/*
-        return response()->json([
-            'data' => $cours,
-        ]);
-
-        */
-
-
+       return view('admin.cours.index')->with(array(
+           'cours'=> $cours,
+           'clients'=> $clients,
+           'cars'=>$car,
+           'moniteurs'=>$moniteurs
+       ));
     }
 
     /**
@@ -150,8 +146,9 @@ class CoursController extends Controller
         if (Request::ajax()) {
             $data  =  Input::all();
             $type=$data['type'];
-            $client_id = $data['client_id'];
+            
             if($type=="conduite"){
+                $client_id = $data['client_id'];
                 $conduitdata = Input::only('type','vehicules_id','starttime','endtime');
                 $id = DB::table('cours')->insertGetId($conduitdata);
                 $cour = Cours::find($id);
@@ -162,7 +159,14 @@ class CoursController extends Controller
             }
 
             if($type=="code"){
-
+                $client_id = $data['client_id'];
+                $conduitdata=Input::only('type','starttime','endtime');
+                $id = DB::table('cours')->insertGetId($conduitdata);
+                $cour = Cours::find($id);
+                $cour->Clients()->attach($client_id);
+                return response()->json([
+                    'success' => $client_id,
+                ]);
             }
         }
 

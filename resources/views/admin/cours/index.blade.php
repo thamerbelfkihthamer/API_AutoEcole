@@ -281,6 +281,7 @@
                                     }else{
                                         var formDate= {
                                             'type' : typecour,
+                                            'client_id':CondidatsId,
                                             'starttime':start.format(),
                                             'endtime': end.format(),
                                             _token: "<?= csrf_token()?>",

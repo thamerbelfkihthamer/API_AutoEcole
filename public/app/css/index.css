@@ -160,9 +160,8 @@ footer{
     color: #FFFFFF;
     padding:1%;
     height: 55px;
-    position: relative;
     top: 10%;
-    z-index: 9999999;
+    z-index: 0;
     margin-top: 20px;
 }
 #liste ul li a{
