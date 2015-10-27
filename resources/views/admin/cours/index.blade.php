@@ -156,7 +156,6 @@
                                 day:      'day'
                             },
                             theme:true,
-                            events:formattedeventdata,
                             selectable:true,
                             selectHelper:true,
                             droppable:true,
@@ -164,52 +163,28 @@
                             businessHours:true,
                             defaultView:'agendaWeek',
                             eventLimit:true,
-                                /*
 
-                        events:function(start,end,callback,day){
-
-
+                        events:function(start, end, timezone, callback){
                             $.ajax({
                                 headers: {'X-CSRF-TOKEN': '<?= csrf_token()?>'},
                                 type: 'POST',
                                 url: 'cours/getevent',
                                 dataType: 'json',
-                                data: {
-                                    start: start.unix(),
-                                    end: end.unix()
-                                },
-                                success: function(doc) {
-                                    for(var i=0;i<doc.data.length;i++){
-                                        /*
-                                        newevent[0]= doc.data[i].type;
-                                        newevent[1]= doc.data[i].starttime;
-                                        newevent[2] = doc.data[i].endtime;
-                                        eventArray.push(newevent);
-                                        */
-                        /*
-                                        eventArray.push({
-                                           title:doc.data[i].type,
-                                           start: doc.data[i].starttime,
-                                            end: doc.data[i].endtime
+                                success: function(list) {
+                                    var events = [];
+                                    for(var i=0; i < list.length; i++){
+                                        events.push({
+                                            title : list[i].type,
+                                            start: list[i].starttime,
+                                            end: list[i].endtime
                                         });
                                     }
-                                    //  console.log('eventarray taille'+eventArray.length);
-                                    for(var k=0;k<eventArray.length;k++){
-                                        formattedeventdata.push({
-                                            title:eventArray[k][0],
-                                            start:eventArray[k][1],
-                                            end:eventArray[k][2]
-                                        });
-                                    }
-
-
-                                   // console.log(formattedeventdata);
+                                    console.log(events);
+                                    callback(events);
                                 }
                             });
-                            $('#calendar').fullCalendar('renderEvent', eventArray,true);
-                            callback(eventArray);
                         },
-                        */
+
                         select: function(start, end) {
                             showbox();
                             var typecour ="code";

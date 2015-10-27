@@ -173,11 +173,10 @@ a:hover{
     inline:none;
 }
 #calendar{
-    height: 50%;
+    height: 500px;
 }
 .fc-basic-view .fc-body .fc-row{
     max-height: 50px;
-
 }
 
 

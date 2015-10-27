@@ -28,16 +28,28 @@ class CoursController extends Controller
 
     public function index()
     {
-        $cours = Cours::all();
-        $clients = Client::all();
-        $car = Vehicules::all();
+        $reservedcar = DB::table('cours')->lists('vehicules_id');
+        list($keys,$valuecar) = array_divide($reservedcar);
+        $freecar = DB::table('vehicules')->whereNotIn('id',$valuecar)->get();
+
+        $cl= DB::table('client_cours')->lists('client_id');
+        list($keys, $values) = array_divide($cl);
+        $freeclient =  DB::table('client')->whereNotIn('id',$values)->get();
+
         $moniteurs = Moniteur::all();
-       return view('admin.cours.index')->with(array(
-           'cours'=> $cours,
-           'clients'=> $clients,
-           'cars'=>$car,
-           'moniteurs'=>$moniteurs
-       ));
+
+        //get not reserved monitor
+        /*
+        $reservemonitor = DB::table('cours')->lists('moniteur_id');
+        list($keys,$valuemonitor) = array_divide($reservemonitor);
+        $freemonitor = DB::table('moniteur')->whereNotIn('id',$valuemonitor)->get();
+        */
+
+           return view('admin.cours.index')->with(array(
+               'clients'=> $freeclient,
+               'cars'=>$freecar,
+               'moniteurs'=>$moniteurs
+           ));
     }
 
     /**
@@ -146,7 +158,7 @@ class CoursController extends Controller
         if (Request::ajax()) {
             $data  =  Input::all();
             $type=$data['type'];
-            
+
             if($type=="conduite"){
                 $client_id = $data['client_id'];
                 $conduitdata = Input::only('type','vehicules_id','starttime','endtime');
@@ -174,12 +186,6 @@ class CoursController extends Controller
     }
 
     public function fullcalanderevent(){
-        $data = Cours::all();
-
-        return response()->json([
-           'data' =>$data,
-        ]);
-
-
+        return Cours::all();
     }
 }

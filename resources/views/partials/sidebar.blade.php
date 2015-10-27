@@ -8,15 +8,3 @@
         <li class="text-center"><a href="{{ route('moniteur.index') }}"> Moniteurs</a></li>
     </ul>
 </div>
-
-<script>
-    /*
-    $(document).ready(function(){
-          $("#liste ul li a").onclick(function(){
-             $(this).css(display = 'none');
-              alert('marche');
-          });
-    });
-    */
-
-</script>
