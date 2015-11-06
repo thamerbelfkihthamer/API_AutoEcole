@@ -36872,13 +36872,13 @@
     });
 
     test('changing parts of a locale config', function (assert) {
-        moment.locale('partial-lang', {
+        moment.locale('partials-lang', {
             months : 'a b c d e f g h i j k l'.split(' ')
         });
 
         assert.equal(moment([2011, 0, 1]).format('MMMM'), 'a', 'should be able to set locale values when creating the localeuage');
 
-        moment.locale('partial-lang', {
+        moment.locale('partials-lang', {
             monthsShort : 'A B C D E F G H I J K L'.split(' ')
         });
 

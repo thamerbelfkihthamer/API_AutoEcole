@@ -18,6 +18,7 @@
                 </header>
             </div><hr>
             <div class="col-lg-12 contenu">
+                <div class="col-lg-10 col-lg-offset-1"><hr>
                 {!! Form::open(['url'=>'client']) !!}
                 <div class="form-group {!! $errors->has('nom') ? 'has-error' : '' !!}">
                     <div class="row mar">
@@ -77,6 +78,7 @@
                     {!! Form::submit('Save', ['class'=>'btn primary']) !!}
                     {!! Form::close() !!}
                 </div>
+            </div>
             </div>
         </div>
     </div>

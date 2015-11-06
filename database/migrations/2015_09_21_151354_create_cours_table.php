@@ -19,6 +19,7 @@ class CreateCoursTable extends Migration
             $table->dateTime('starttime');
             $table->dateTime('endtime');
             $table->integer('vehicules_id');
+            $table->integer('moniteur_id');
             $table->integer('autoecoletable_id');
             $table->softDeletes();
             $table->timestamps();

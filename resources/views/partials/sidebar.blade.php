@@ -1,10 +1,11 @@
 <div class="col-lg-2 z-depth-2" id="liste">
-    <ul>
-        <li class="text-center"><a href="{{ route('autoecole.index') }}">Center</a></li>
-        <li class="text-center"><a href="{{ route('client.index') }}"> Condidats</a></li>
-        <li class="text-center"><a href="{{ route('examen.index') }}"> Examens</a></li>
-        <li class="text-center"><a href="{{ route('vehicules.index') }}"> Cars</a></li>
-        <li class="text-center"><a href="{{ route('cours.index') }}"> Cours</a></li>
-        <li class="text-center"><a href="{{ route('moniteur.index') }}"> Moniteurs</a></li>
-    </ul>
+    <div class="list-group" id="sidebar">
+        <a class="list-group-item" href="{{ route('autoecole.index') }}"><i class="fa fa-home fa-fw"></i>&nbsp; Center</a>
+        <a class="list-group-item" href="{{ route('client.index') }}"><i class="fa fa-users fa-fw"></i>&nbsp; Condidats</a>
+        <a class="list-group-item" href="{{ route('examen.index') }}"><i class="fa fa-pencil fa-fw"></i>&nbsp; Examens</a>
+        <a class="list-group-item" href="{{ route('vehicules.index') }}"><i class="fa fa-car fa-fw"></i>&nbsp; Cars</a>
+        <a class="list-group-item" href="{{ route('cours.index') }}"><i class="fa fa-cog fa-fw"></i>&nbsp; Cours</a>
+        <a class="list-group-item" href="{{ route('moniteur.index') }}"><i class="fa fa-user-secret fa-fw"></i>&nbsp; Moniteurs</a>
+
+    </div>
 </div>

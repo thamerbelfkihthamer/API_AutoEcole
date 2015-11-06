@@ -16,7 +16,7 @@
                 <header>
                     <p class="text-center"> </p>
                     <ul class="actions">
-                        <a href="{{ route('client.create') }}"><i class="md md-person-add"></i></a>
+                        <a href="{{ route('client.create') }}"><i class="fa fa-user-plus"></i></a>
                     </ul>
                 </header>
             </div><hr>

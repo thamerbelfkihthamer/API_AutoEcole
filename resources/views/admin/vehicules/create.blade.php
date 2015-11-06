@@ -17,6 +17,7 @@
                 </header>
             </div><hr>
             <div class="col-lg-12 contenu">
+                <div class="col-lg-10 col-lg-offset-1"><hr>
                     {!! Form::open(['url'=>'vehicules']) !!}
                     <div class="form-group {!! $errors->has('nom') ? 'has-error' : '' !!}">
                         <div class="row mar">
@@ -67,6 +68,7 @@
                         </div>
                         {!! Form::close() !!}
                     </div>
+                </div>
                 </div>
 
             </div>

@@ -20,6 +20,14 @@ Route::controllers([
     'password' => 'Auth\PasswordController',
 
 ]);
+/*
+Route::group(['prefix' => 'api'], function()
+{
+    //Route::resource('room_type', 'RoomTypeController');
+    Route::resource('client','ClientController');
+
+});
+*/
 
 Route::resource('client','ClientController');
 Route::get('client/{client}','ClientController@destroy');
@@ -41,6 +49,7 @@ Route::get('moniteur/{moniteur}','MoniteurController@destroy');
 
 Route::post('cours/send','CoursController@send');
 Route::post('cours/getevent','CoursController@fullcalanderevent');
+Route::post('cours/getcondidat','CoursController@getCondidat');
 
 
 

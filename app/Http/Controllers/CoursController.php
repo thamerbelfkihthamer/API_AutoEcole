@@ -161,7 +161,7 @@ class CoursController extends Controller
 
             if($type=="conduite"){
                 $client_id = $data['client_id'];
-                $conduitdata = Input::only('type','vehicules_id','starttime','endtime');
+                $conduitdata = Input::only('type','vehicules_id','moniteur_id','starttime','endtime');
                 $id = DB::table('cours')->insertGetId($conduitdata);
                 $cour = Cours::find($id);
                 $cour->clients()->attach($client_id);
@@ -172,7 +172,7 @@ class CoursController extends Controller
 
             if($type=="code"){
                 $client_id = $data['client_id'];
-                $conduitdata=Input::only('type','starttime','endtime');
+                $conduitdata=Input::only('type','moniteur_id','starttime','endtime');
                 $id = DB::table('cours')->insertGetId($conduitdata);
                 $cour = Cours::find($id);
                 $cour->Clients()->attach($client_id);
@@ -186,6 +186,28 @@ class CoursController extends Controller
     }
 
     public function fullcalanderevent(){
-        return Cours::all();
+
+        if(Request::ajax()){
+            return Cours::all();
+        }
+    }
+
+    public function getCondidat(){
+
+        if(Request::ajax()){
+            $data = Input::all();
+            $idcour = $data['eventid'];
+            $cour = Cours::findOrNew($idcour);
+            $courclient = Cours::find($idcour)->clients()->get();
+            $courmoniteur = Cours::find($idcour)->moniteur()->get();
+            $courcar = Cours::find($idcour)->vehicule()->get();
+
+            return response()->json([
+                'success' => $courclient,
+                'moniteur'=>$courmoniteur,
+                'car'=>$courcar,
+                'cour'=>$cour,
+            ]);
+        }
     }
 }

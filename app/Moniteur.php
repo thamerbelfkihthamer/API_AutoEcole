@@ -12,4 +12,8 @@ class Moniteur extends Model
     protected $table = 'moniteur';
 
     public $timestamps = false;
+
+    public function cours(){
+        return $this->hasMany('autoecole\cours');
+    }
 }

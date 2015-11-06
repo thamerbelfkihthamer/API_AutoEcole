@@ -17,6 +17,7 @@
                 </header>
             </div><hr>
             <div class="col-lg-12 contenu">
+                <div class="col-lg-10 col-lg-offset-1"><hr>
                     {!! Form::model($vehicule ,['method'=>'PATCH','route'=>['vehicules.update',$vehicule->id]]) !!}
                     <div class="form-group {!! $errors->has('nom') ? 'has-error' : '' !!}">
                         <div class="row mar">
@@ -66,6 +67,7 @@
                         {!! Form::close() !!}
                 </div>
             </div>
+                </div>
          </div>
             @stop
 

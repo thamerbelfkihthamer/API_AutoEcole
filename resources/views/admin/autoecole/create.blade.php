@@ -1,53 +1,68 @@
 @extends('admin.index')
-@section('title', 'Index|Client')
-@section('body')
+        @section('title')
+            Driving school - Create
+        @stop
+        @section('body')
+            <div class="form-groupp">
+                <div class="row">
+                    <div class="col-lg-12" id="header">
+                        <header>
+                            <p>Home | Driving school | Create </p>
+                        </header>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12" id="header">
+                        <header>
+                            <p class="text-center">New Driving school </p>
+                        </header>
+                    </div><hr>
+                    <div class="col-lg-12 contenu">
+                        <div class="col-lg-10 col-lg-offset-1"><hr>
+                            {!! Form::open(['url'=>'autoecole']) !!}
+                            <div class="form-group {!! $errors->has('nom') ? 'has-error' : '' !!}">
+                                <div class="input-field">
+                                    {!! Form::label('name') !!}
+                                    {!! Form::text('name') !!}
+                                    {!! $errors->first('name', '<small class="help-block">:message</small>') !!}
+                                </div>
 
-    <div class="card">
-        <div class="card-header">
-            <h2>New Driving school</h2>
-        </div>
-        <div class="card-body card-padding">
-            <div class="row">
-                <div class="col-sm-6">
-                    {!! Form::open(['url'=>'autoecole']) !!}
-                    <div class="form-group {!! $errors->has('nom') ? 'has-error' : '' !!}">
-                        <div class="input-field">
-                            {!! Form::label('name') !!}
-                            {!! Form::text('name') !!}
-                            {!! $errors->first('name', '<small class="help-block">:message</small>') !!}
+                                <div class="input-field">
+                                    {!! Form::label('adress') !!}
+                                    {!! Form::text('adress') !!}
+                                    {!! $errors->first('adress', '<small class="help-block">:message</small>') !!}
+                                </div>
+                                <div class="input-field">
+                                    {!! Form::label('telephone') !!}
+                                    {!! Form::text('tel') !!}
+                                    {!! $errors->first('tel', '<small class="help-block">:message</small>') !!}
+                                </div>
+                                <div class="form-group">
+                                    {!! Form::submit('Save', ['class'=>'btn primary']) !!}
+                                </div>
+                                {!! Form::close() !!}
+                            </div>
                         </div>
-
-                        <div class="input-field">
-                            {!! Form::label('adress') !!}
-                            {!! Form::text('adress') !!}
-                            {!! $errors->first('adress', '<small class="help-block">:message</small>') !!}
-                        </div>
-                        <div class="input-field">
-                            {!! Form::label('telephone') !!}
-                            {!! Form::text('tel') !!}
-                            {!! $errors->first('tel', '<small class="help-block">:message</small>') !!}
-                        </div>
-                        <div class="form-group">
-                            {!! Form::submit('Save', ['class'=>'btn btn-primary waves-effect']) !!}
-                        </div>
-                        {!! Form::close() !!}
                     </div>
                 </div>
             </div>
-
-        </div>
-
-
         @stop
 
-        @section('header')
-
-            <link href="{{ asset('vendors/chosen_v1.4.2/chosen.min.css') }}" rel="stylesheet">
-        @stop
+        @section('header')@stop
 
         @section('footer')
+            <script>
+                $(document).ready(function(){
+                    $(".date :first-child").addClass('datepicker');
+                    $("select").addClass("selectpicker");
+                    $('.datepicker').pickadate({
+                        selectMonths: true, // Creates a dropdown to control month
+                        selectYears: 15, // Creates a dropdown of 15 years to control year
+                        format: 'yyyy-mm-dd'
+                    });
 
-            <script src="{{ asset('vendors/chosen_v1.4.2/chosen.jquery.min.js') }}"></script>
-            <script src="{{ asset('vendors/input-mask/input-mask.min.js') }}"></script>
-            <script src="{{ asset('vendors/fileinput/fileinput.min.js') }}"></script>
+                });
+            </script>
 @stop
+
+

@@ -13,6 +13,7 @@
     <link href="{{asset('bower_components/fullcalendar/dist/fullcalendar.css')}}" rel="stylesheet"/>
     <link href="{{asset('bower_components/bootstrap/dist/css/bootstrap.css')}}" rel="stylesheet">
     <link href="{{asset('bower_components/select2/dist/css/select2.css')}}" rel="stylesheet">
+    <link href="{{asset('bower_components/font-awesome/css/font-awesome.css')}}" rel="stylesheet">
     <link href="{{asset('app/css/index.css')}}" rel="stylesheet">
     @yield('header')
 </head>
@@ -34,8 +35,8 @@
             </div>
         </div>
     </div>
-    @include('partials.footer');
-</div>
+ </div>
+@include('partials.footer');
 <script src="{{ asset('bower_components/jquery/dist/jquery.min.js') }}"></script>
 <script src="{{ asset('bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
 <script src="{{ asset('bower_components/jquery_nicescroll/jquery.nicescroll.min.js') }}"></script>
@@ -45,10 +46,10 @@
 <script src="{{ asset('bower_components/Materialize/dist/js/materialize.js') }}"></script>
 <script src="{{asset('bower_components/sweetalert2/dist/sweetalert2.min.js')}}"></script>
 <script src="{{ asset('bower_components/select2/dist/js/select2.js') }}"></script>
-<script src="{{asset('app/js/app.js')}}"></script>
+<script src="{{ asset('bower_components/jspdf/dist/jspdf.min.js') }}"></script>
+<script src="{{ asset('bower_components/jspdf-autotable/dist/jspdf.plugin.autotable.js') }}"></script>
 @yield('footer')
-
-
+<script src="{{asset('app/js/app.js')}}"></script>
 </body>
 
 

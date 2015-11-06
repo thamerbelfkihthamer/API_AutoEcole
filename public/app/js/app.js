@@ -5,7 +5,4 @@
 $(document).ready(function () {
 
     $('.datepicker').pickadate();
-    $("html").niceScroll({
-        cursorcolor:"#EEEDE8"
-    });
 });

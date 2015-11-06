@@ -21,4 +21,8 @@ class Vehicules extends Model
     public function  autoecole(){
         return $this->belongsTo('autoecole\Autoecoletable','autoecoletable_id');
     }
+
+    public function cours(){
+        return $this->hasMany('autoecole\cours');
+    }
 }
