@@ -14,13 +14,16 @@
         <div class="row">
             <div class="col-lg-12" id="header">
                 <header>
-                    <p class="text-center">New Etudient </p>
+                    <p class="text-center">New Condidat </p>
                 </header>
-            </div><hr>
+            </div>
+        </div>
+        <div class="row">
             <div class="col-lg-12 contenu">
-                <div class="col-lg-10 col-lg-offset-1"><hr>
                 {!! Form::open(['url'=>'client']) !!}
                 <div class="form-group {!! $errors->has('nom') ? 'has-error' : '' !!}">
+                    <div class="row">
+                    <div class="col-lg-4 col-lg-offset-1">
                     <div class="row mar">
                         <div class="input-field">
                             {!! Form::label('First Name') !!}
@@ -49,6 +52,8 @@
                             {!! $errors->first('adresss', '<small>:message</small>') !!}
                         </div>
                     </div>
+                    </div>
+                     <div class="col-lg-4 col-lg-offset-1">
                     <div class="row mar">
                         <div class="input-field">
                             {!! Form::label('Telephone') !!}
@@ -78,8 +83,11 @@
                     {!! Form::submit('Save', ['class'=>'btn primary']) !!}
                     {!! Form::close() !!}
                 </div>
+                        </div>
+                    </div>
             </div>
             </div>
+        </div>
         </div>
     </div>
 @stop
@@ -91,10 +99,9 @@
         $(document).ready(function(){
            $(".date :first-child").addClass('datepicker');
             $("select").addClass("selectpicker");
-            $('.datepicker').pickadate({
-                selectMonths: true, // Creates a dropdown to control month
-                selectYears: 15, // Creates a dropdown of 15 years to control year
-                format: 'yyyy-mm-dd'
+            $('.datepicker').datepicker({
+                format: 'yyyy-mm-dd',
+                startDate: '-3555555d'
             });
 
         });

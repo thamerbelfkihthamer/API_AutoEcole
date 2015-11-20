@@ -14,9 +14,8 @@
         <div class="row">
             <div class="col-lg-12" id="header">
                 <header>
-                    <p class="text-center"> </p>
-                    <ul class="actions">
-                        <a href="{{ route('client.create') }}"><i class="fa fa-user-plus"></i></a>
+                    <ul class="actions col-lg-offset-11">
+                        <a href="{{ route('client.create') }}"><i class="fa fa-user-plus fa-2x" style="color:#ffffff;margin-top:-5px;"></i></a>
                     </ul>
                 </header>
             </div><hr>
@@ -49,7 +48,6 @@
                                 <td>{{$client->adresss}}</td>
                                 <td>{{$client->type_piece}}</td>
                                 <td>{{$client->num_piece}}</td>
-                                <td>delete</td>
                             </tr>
                         @endforeach
                         </tbody>
@@ -77,6 +75,9 @@
                     iconRefresh: 'md-refresh',
                     iconUp: 'md-expand-less'
                 }
+            }).on("click.rs.jquery.bootgrid", function (e, columns, row)
+            {
+                return window.location = "<?= route('client.index') ?>/" + row.id + "/edit";
             });
         });
     </script>

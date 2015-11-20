@@ -10,6 +10,7 @@
         "illuminate/html": "5.0.*",
         "bestmomo/scafold": "dev-master",
         "maddhatter/laravel-fullcalendar": "^1.2",
+        "edvinaskrucas/notification": "5.*",
         "barryvdh/laravel-debugbar": "^2.0"
     },
     "require-dev": {

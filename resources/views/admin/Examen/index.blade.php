@@ -11,6 +11,7 @@
                 </header>
             </div>
         </div>
+        @include('admin/Examen.addExamen')
         <div class="row">
             <div class="col-lg-12" id="header">
                 <header>
@@ -53,117 +54,37 @@
                 header: {
                     left: 'prev,next today',
                     center: 'title',
-                    right: 'month,agendaWeek,agendaDay'
+                    right: 'agendaWeek,agendaDay'
                 },
-
-                eventLimit:true,
+                minTime:"08:00:00",
+                maxTime:"20:00:00",
+                scrollTime:'15:00:00',
+                allDaySlot:false,
                 buttonText: {
                     today:    'today',
-                    month:    'month',
                     week:     'week',
                     day:      'day'
                 },
-                eventColor: '#378006',
+                theme:true,
                 selectable:true,
                 selectHelper:true,
-                firstDay:1,
+                droppable:true,
                 weekends:false,
-                businessHours:true,
+                businessHours:
+                {
+                    start: '8:00', // a start time (10am in this example)
+                    end: '18:00', // an end time (6pm in this example)
+                    dow: [ 1, 2, 3, 4 ]
+                    // days of week. an array of zero-based day of week integers (0=Sunday)
+                    // (Monday-Thursday in this example)
+                },
+                defaultView:'agendaWeek',
+                eventLimit:true,
+
                 select: function(start, end) {
-
-                    swal({
-                                title: 'Add Examen',
-                                html: '<input type="text" class="input-field" id="thamer" placeholder="Examen"/><br><input type="text" placeholder="f" id="description" class="input-field" /><br><input type="text" placeholder="text" id="des" class="input-field" /><select id="selectcodeconduit" class="selectpicker"><option value="code">CODE</option> <option value="conduite">CONDUITE</option></select>',
-                                showCancelButton: true,
-                                confirmButtonText: 'Save !',
-                                closeOnConfirm: true
-                            },
-                            function(isConfirm)
-                            {
-                                var title = $('#thamer').val();
-                                var description = $("#description").val();
-                                if (title !== "") {
-                                    eventData = {
-                                        title: title,
-                                        description: description,
-                                        start: start,
-                                        end: end
-                                    };
-                                    $('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
-
-                                }
-
-                                $('#calendar').fullCalendar('unselect');
-                                setTimeout(function(){
-                                    if (isConfirm && title!=="") {
-
-                                        // insertion de nouvelle examen
-                                        var formDate= {
-                                            'name' : title,
-                                            _token: "<?= csrf_token()?>",
-
-                                        }
-
-                                        $.ajax({
-                                            headers: {'X-CSRF-TOKEN': '<?= csrf_token()?>'},
-                                            url:'examen/send',
-                                            type:'POST',
-                                            data: formDate,
-                                            dataType:'json',
-                                            encode:true,
-                                        }).done(function(data){
-                                            console.log(data);
-                                            swal(       'Save!',       'Your Cour done.',       'success'     );
-                                        }).fail(function(data){
-                                            sweetAlert('Oops...', 'Something went wrong ajaxxxxxxxx!', 'error');
-                                        });
-                                    }
-                                    else{
-                                        sweetAlert('Oops...', 'Something went wrong!', 'error');
-                                    }
-
-
-                                },200);
-
-                            });
+                    $("#myModal").modal();
                 }
-
-
-
-
-
-
-
-
-
-                //}
-                /*
-                 swal({
-                 title: "An input!",
-                 text: 'Write something interesting:',
-                 type: 'input',
-                 showCancelButton: true,
-                 closeOnConfirm: true,
-                 animation: "slide-from-top"
-                 },
-                 function(inputValue){
-                 console.log("You wrote", inputValue);
-                 title = inputValue;
-                 if (title) {
-                 eventData = {
-                 title: title,
-                 start: start,
-                 end: end
-                 };
-                 $('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
-                 }
-                 */
-
             });
         });
-
-
-
     </script>
-
 @stop

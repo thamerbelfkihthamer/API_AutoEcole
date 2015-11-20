@@ -1,5 +1,5 @@
 /**
- * jsPDF AutoTable plugin v2.0.13
+ * jsPDF AutoTable plugin v2.0.16
  * Copyright (c) 2014 Simon Bengtsson, https://github.com/simonbengtsson/jsPDF-AutoTable
  *
  * Licensed under the MIT License.
@@ -118,6 +118,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
      * @param {Object} [options={}] Options that will override the default ones
      */
     API.autoTable = function (headers, data, options) {
+        validateInput(headers, data, options);
         doc = this;
         settings = initOptions(options || {});
         pageCount = 1;
@@ -174,31 +175,35 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /**
      * Parses an html table
      *
-     * @param table Html table element
+     * @param tableElem Html table element
+     * @param includeHiddenRows Defaults to false
      * @returns Object Object with two properties, columns and rows
      */
-    API.autoTableHtmlToJson = function (table) {
-        var data = [],
-            headers = [],
-            header = table.rows[0],
-            tableRow,
-            rowData,
-            i,
-            j;
+    API.autoTableHtmlToJson = function (tableElem, includeHiddenRows) {
+        includeHiddenRows = includeHiddenRows || false;
 
-        for (i = 0; i < header.cells.length; i++) {
-            headers.push(typeof header.cells[i] !== 'undefined' ? header.cells[i].textContent : '');
+        var header = tableElem.rows[0];
+        var result = { columns: [], rows: [] };
+
+        for (var k = 0; k < header.cells.length; k++) {
+            var cell = header.cells[k];
+            result.columns.push(typeof cell !== 'undefined' ? cell.textContent : '');
         }
 
-        for (i = 1; i < table.rows.length; i++) {
-            tableRow = table.rows[i];
-            rowData = [];
-            for (j = 0; j < header.cells.length; j++) {
-                rowData.push(typeof tableRow.cells[j] !== 'undefined' ? tableRow.cells[j].textContent : '');
+        for (var i = 1; i < tableElem.rows.length; i++) {
+            var tableRow = tableElem.rows[i];
+            var style = window.getComputedStyle(tableRow);
+            if (includeHiddenRows || style.display !== 'none') {
+                var rowData = [];
+                for (var j = 0; j < header.cells.length; j++) {
+                    rowData.push(typeof tableRow.cells[j] !== 'undefined' ? tableRow.cells[j].textContent : '');
+                }
+                result.rows.push(rowData);
             }
-            data.push(rowData);
         }
-        return { columns: headers, data: data, rows: data };
+
+        result.data = result.rows; // Deprecated
+        return result;
     };
 
     /**
@@ -245,6 +250,24 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         doc.text(text, x, y);
         return doc;
     };
+
+    function validateInput(headers, data, options) {
+        if (!headers || typeof headers !== 'object') {
+            console.error("The headers should be an object or array, is: " + typeof headers);
+        }
+
+        if (!data || typeof data !== 'object') {
+            console.error("The data should be an object or array, is: " + typeof data);
+        }
+
+        if (!!options && typeof options !== 'object') {
+            console.error("The data should be an object or array, is: " + typeof data);
+        }
+
+        if (!Array.prototype.forEach) {
+            console.error("The current browser does not support Array.prototype.forEach which is required for " + "jsPDF-AutoTable. You can try polyfilling it by including this script " + "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach#Polyfill");
+        }
+    }
 
     function initOptions(userOptions) {
         var settings = extend(defaultOptions(), userOptions);
@@ -306,8 +329,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         var splitRegex = /\r\n|\r|\n/g;
 
         // Header row and columns
-        var headerRow = new Row();
-        headerRow.raw = inputHeaders;
+        var headerRow = new Row(inputHeaders);
         headerRow.index = -1;
 
         var themeStyles = extend(defaultStyles, themes[settings.theme].table, themes[settings.theme].header);
@@ -493,7 +515,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     if (settings.drawRow(row, hooksData({row: row})) !== false) {
                         printRow(row, settings.drawCell);
                     }
-                    row = new Row();
+                    row = new Row(rawRow);
                 }*/
                 addPage();
             }
@@ -667,10 +689,10 @@ var Table = function Table() {
     this.settings = {};
 };
 
-var Row = function Row() {
+var Row = function Row(raw) {
     _classCallCheck(this, Row);
 
-    this.raw = {};
+    this.raw = raw || {};
     this.index = 0;
     this.styles = {};
     this.cells = {};

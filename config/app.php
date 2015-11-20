@@ -136,7 +136,6 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-        Barryvdh\Debugbar\ServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -146,12 +145,14 @@ return [
         autoecole\Providers\EventServiceProvider::class,
         autoecole\Providers\RouteServiceProvider::class,
         MaddHatter\LaravelFullcalendar\ServiceProvider::class,
+        Krucas\Notification\NotificationServiceProvider::class,
 
         /*
          *
          */
         Illuminate\Html\HtmlServiceProvider::class,
         Bestmomo\Scafold\ScafoldServiceProvider::class,
+        Barryvdh\Debugbar\ServiceProvider::class,
 
 
     ],
@@ -211,7 +212,7 @@ return [
         'Form'      => Illuminate\Html\FormFacade::class,
         'HTML'      => Illuminate\Html\HtmlFacade::class,
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
-
+        'Notification' => Krucas\Notification\Facades\Notification::class,
 
     ],
 

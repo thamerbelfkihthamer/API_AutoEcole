@@ -1,5 +1,5 @@
 @extends('admin.index')
-@section('title', 'Index|Client')
+@section('title', 'Index|Cars')
 
 @section('body')
     <div class="form-groupp">
@@ -15,11 +15,19 @@
                 <header>
                     <p class="text-center">Edit Car </p>
                 </header>
-            </div><hr>
+            </div><br><hr>
             <div class="col-lg-12 contenu">
-                <div class="col-lg-10 col-lg-offset-1"><hr>
+                <div class="row">
+                    <div class="col-lg-12">
+                        {!! Form::open(['route' => ['vehicules.destroy', $vehicule->id], 'method' => 'delete']) !!}
+                        <button class="text-right"><span class="glyphicon glyphicon-trash" style="color:black; cursor: pointer" ></span></button>
+                        {!!Form::close() !!}
+                    </div>
+                </div><hr>
+                <div class="row">
                     {!! Form::model($vehicule ,['method'=>'PATCH','route'=>['vehicules.update',$vehicule->id]]) !!}
                     <div class="form-group {!! $errors->has('nom') ? 'has-error' : '' !!}">
+                        <div class="col-lg-4 col-lg-offset-1">
                         <div class="row mar">
                             <div class="input-field">
                                 {!! Form::label('name') !!}
@@ -36,13 +44,15 @@
                         </div>
                         <div class="row mar">
                             <div class="input-field date">
-                                {!! Form::text('date_visite_technique','YYYY-MM-DD')!!}
+                                {!! Form::text('date_visite_technique')!!}
                                 {!! $errors->first('date_visite_technique', '<small>:message</small>') !!}
                             </div>
                         </div>
+                            </div>
+                        <div class="col-lg-4 col-lg-offset-1">
                         <div class="row mar">
                             <div class="input-field date">
-                                {!! Form::text('date_fin_assurence','YYYY-MM-DD')!!}
+                                {!! Form::text('date_fin_assurence')!!}
                                 {!! $errors->first('date_fin_assurence', '<small>:message</small>') !!}
                             </div>
                         </div>
@@ -53,19 +63,12 @@
                                 {!! $errors->first('vidange', '<small>:message</small>') !!}
                             </div>
                         </div>
-                        <div class="row mar">
-                            <select name="autoecoletable_id">
-                                @foreach( $autoecole as $auto){
-                                <option value="{{$auto->id}}">{{$auto->name}}</option>
-                                }
-                                @endforeach
-                            </select>
-                        </div>
                         <div class="form-group">
                             {!! Form::submit('Edit', ['class'=>'btn primary']) !!}
                         </div>
                         {!! Form::close() !!}
                 </div>
+                        </div>
             </div>
                 </div>
          </div>
@@ -80,10 +83,10 @@
                     $(document).ready(function(){
                        $("select").addClass("selectpicker");
                         $(".date :first-child").addClass('datepicker');
-                        $('.datepicker').pickadate({
-                            selectMonths: true, // Creates a dropdown to control month
-                            selectYears: 15, // Creates a dropdown of 15 years to control year
-                            format: 'yyyy-mm-dd'
+                        $("select").addClass("selectpicker");
+                        $('.datepicker').datepicker({
+                            format: 'yyyy-mm-dd',
+                            startDate: '-3555555d'
                         });
                     });
 

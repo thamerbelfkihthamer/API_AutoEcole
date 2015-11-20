@@ -1,79 +1,47 @@
-@extends('admin.index')
-@section('title', 'Index|Client')
-@section('body')
-    <div class="card">
-        <div class="card-header">
-            <h2>New Cour</h2>
-        </div>
-        <div class="card-body card-padding">
-            <div class="row">
-                <div class="col-sm-6">
-                    {!! Form::open(['url'=>'cours']) !!}
-                    <div class="form-group {!! $errors->has('nom') ? 'has-error' : '' !!}">
-                        <select name="autoecoletable_id">
-                            @foreach( $autoecole as $auto){
-                            <option value="{{$auto->id}}">{{$auto->name}}</option>
-                            }
-                            @endforeach
-                        </select>
-                        <div class="input-field type">
-                            {!! Form::select('type', ['CODE'=>'CODE', 'CONDUIT'=>'CONDUIT']) !!}
-                            {!! $errors->first('type', '<small class="help-block">:message</small>') !!}
-                        </div>
 
-                        <div  id="sujet">
-                            {!! Form::select('sujet', ['null'=>'','B'=>'B', 'C+F'=>'C+F','H'=>'H']) !!}
-                            {!! $errors->first('sujet', '<small class="help-block">:message</small>') !!}
-                        </div><br>
-                        <div id="vehicule">
-                            <select name="vehicules_id">
-                                @foreach( $vehicules as $vehicule){
-                                <option value="{{$vehicule->id}}">{{$vehicule->name}}</option>
-                                }
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            {!! Form::submit('create', ['class'=>'btn primary']) !!}
-                        </div><br>
-                        {!! Form::close() !!}
+
+<!-- debut box -->
+<div class="sweet-overlay">
+</div>
+<div class="sweeta">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-lg-offset-1">
+                <h3> Add Cour</h3>
+                <div class="form-group"><hr>
+                    <select id="selectcodeconduit" class="selectpicker">
+                        <option disabled="disabled">Select Cour Type</option>
+                        <option value="code" selected="selected">CODE</option>
+                        <option value="conduite">CONDUITE</option>
+                    </select><br>
+                    <select id="selectprof">
+                        <option disabled="disabled" selected="selected">Select Teacher</option>
+                        @foreach($moniteurs as $moniteur)
+                            <option value="{{$moniteur->id}}">{{$moniteur->name}} {{$moniteur->prenom}}</option>
+                        @endforeach
+                    </select><br>
+                    <select id="selectcar">
+                        <option disabled="disabled" selected="selected">Select Car</option>
+                        @foreach( $cars as $car)
+                            <option value="{{$car->id}}">{{$car->name}}</option>
+                        @endforeach
+                    </select><br>
+                    <select id="selectcondidat" multiple="multiple" class="js-example-placeholder-multiple js-event-log js-example-events" placeholder="select condidat">
+                        @foreach($clients as $client)
+                            <option  value="{{$client->id}}">{{$client->name}}{{$client->prenom}}</option>
+                        @endforeach
+                    </select>
+                    <select id="selectcondidatconduite">
+                        <option disabled="disabled" selected="selected">Select Condidat</option>
+                        @foreach($clients as $client)
+                            <option  value="{{$client->id}}">{{$client->name}}{{$client->prenom}}</option>
+                        @endforeach
+                    </select><hr>
+                    <input type="submit" class="btn btn-primary" value="Save !" id="save-event">
+                    <input type="submit" class="btn btn-danger" value="Cancel" id="cancel-box">
                 </div>
             </div>
-
         </div>
-        @stop
+    </div>
+</div>
 
-        @section('header')
-            <link href="{{ asset('vendors/bower_components/bootstrap-select/dist/css/bootstrap-select.css') }}" rel="stylesheet">
-            <link href="{{ asset('vendors/chosen_v1.4.2/chosen.min.css') }}" rel="stylesheet">
-        @stop
-
-        @section('footer')
-                <script>
-                    $(document).ready(function(){
-                        $("select").addClass('selectpicker');
-
-                        $("#sujet").css({
-                            display: 'none'
-                        });
-                        $("#vehicule").css({
-                            display: 'none'
-                        });
-
-                        $(".type select:first-child").on('change',function(){
-                            if(this.value == "CONDUIT"){
-                                $("#sujet").fadeIn(300);
-                                $("#vehicule").fadeIn(2000);
-                            }
-                            else{
-                                $("#sujet").fadeOut(300);
-                                $("#vehicule").fadeOut(1000);
-                            }
-                        });
-
-
-                    })
-                </script>
-            <script src="{{ asset('vendors/bower_components/bootstrap-select/dist/js/bootstrap-select.js') }}"></script>
-            <script src="{{ asset('vendors/chosen_v1.4.2/chosen.jquery.min.js') }}"></script>
-        @stop

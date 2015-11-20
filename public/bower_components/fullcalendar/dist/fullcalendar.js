@@ -10692,7 +10692,7 @@ var MonthView = BasicView.extend({
 
 		// ensure 6 weeks
 		if (this.isFixedWeeks()) {
-			rowCnt = Math.ceil(range.end.diff(range.start, 'weeks', true)); // could be partials weeks due to hiddenDays
+			rowCnt = Math.ceil(range.end.diff(range.start, 'weeks', true)); // could be partial weeks due to hiddenDays
 			range.end.add(6 - rowCnt, 'weeks');
 		}
 

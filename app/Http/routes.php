@@ -41,6 +41,7 @@ Route::get('autoecole/{autoecole}','AutoecoleController@destroy');
 
 Route::resource('vehicules','VehiculesController');
 Route::get('vehicules/{vehicules}','VehiculesController@destroy');
+Route::post('vehicules/getnotification','VehiculesController@getnotification');
 
 Route::resource('cours','CoursController');
 Route::get('cours/{cours}','CoursController@destroy');

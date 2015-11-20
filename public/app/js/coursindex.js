@@ -3,7 +3,6 @@
  */
 
 $(document).ready(function(){
-
     var CondidatsId = [],formattedeventdata = [],newevent = [], eventArray= [];
     var vehicule_id,condidat_id,teacher_id;
     var date = new Date();
@@ -15,6 +14,11 @@ $(document).ready(function(){
     var $eventSelect = $(".js-example-events");
     $eventSelect.on("select2:select", function (e) { log("select", e); });
     $eventSelect.on("select2:unselect", function (e) { log("unselect", e); });
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
 
     function log (name, evt) {
         if (!evt) {
@@ -346,3 +350,4 @@ $(document).ready(function(){
 
     });
 });
+

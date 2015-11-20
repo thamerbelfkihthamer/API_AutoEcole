@@ -5,9 +5,13 @@
         </div>
         <div>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#"><i class="fa fa-bell-o fa-2x"></i></a></li>
+                @include('partials.modalnotification')
+                @include('partials.notificationlink')
                 <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
             </ul>
         </div>
     </div>
 </nav>
+
+
+

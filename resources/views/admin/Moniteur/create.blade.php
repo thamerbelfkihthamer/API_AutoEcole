@@ -19,8 +19,9 @@
             </div><hr>
             <div class="col-lg-12 contenu">
                 {!! Form::open(['url'=>'moniteur']) !!}
-                <div class="col-lg-6 col-lg-offset-3">
                 <div class="form-group {!! $errors->has('nom') ? 'has-error' : '' !!}">
+                <div class="row">
+                <div class="col-lg-4 col-lg-offset-1">
                     <div class="row mar">
                         <div class="input-field">
                             {!! Form::label('First Name') !!}
@@ -42,6 +43,8 @@
                             {!! $errors->first('email', '<small>:message</small>') !!}
                         </div>
                     </div>
+                    </div>
+                    <div class="col-lg-4 col-lg-offset-1">
                     <div class="row mar">
                         <div class="input-field">
                             {!! Form::label('Telephone') !!}
@@ -58,6 +61,8 @@
                     </div>
                     {!! Form::submit('Save', ['class'=>'btn primary']) !!}
                     {!! Form::close() !!}
+                </div>
+                    </div>
                 </div>
                 </div>
             </div>

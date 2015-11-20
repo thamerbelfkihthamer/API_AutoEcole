@@ -11,158 +11,19 @@
                 </header>
             </div>
         </div>
-        <!-- debut box -->
-        <div class="sweet-overlay">
-        </div>
-        <div class="sweeta">
-            <div class="container">
-               <div class="row">
-                   <div class="col-lg-3 col-lg-offset-1">
-                       <h3> Add Cour</h3>
-                       <div class="form-group"><hr>
-                           <select id="selectcodeconduit" class="selectpicker">
-                               <option disabled="disabled">Select Cour Type</option>
-                               <option value="code" selected="selected">CODE</option>
-                               <option value="conduite">CONDUITE</option>
-                           </select><br>
-                           <select id="selectprof">
-                               <option disabled="disabled" selected="selected">Select Teacher</option>
-                               @foreach($moniteurs as $moniteur)
-                                   <option value="{{$moniteur->id}}">{{$moniteur->name}} {{$moniteur->prenom}}</option>
-                               @endforeach
-                           </select><br>
-                           <select id="selectcar">
-                               <option disabled="disabled" selected="selected">Select Car</option>
-                               @foreach( $cars as $car)
-                                   <option value="{{$car->id}}">{{$car->name}}</option>
-                               @endforeach
-                           </select><br>
-                           <select id="selectcondidat" multiple="multiple" class="js-example-placeholder-multiple js-event-log js-example-events" placeholder="select condidat">
-                               @foreach($clients as $client)
-                                   <option  value="{{$client->id}}">{{$client->name}}{{$client->prenom}}</option>
-                                @endforeach
-                           </select>
-                           <select id="selectcondidatconduite">
-                               <option disabled="disabled" selected="selected">Select Condidat</option>
-                               @foreach($clients as $client)
-                                   <option  value="{{$client->id}}">{{$client->name}}{{$client->prenom}}</option>
-                               @endforeach
-                           </select><hr>
-                           <input type="submit" class="btn btn-primary" value="Save !" id="save-event">
-                           <input type="submit" class="btn btn-danger" value="Cancel" id="cancel-box">
-                       </div>
-                   </div>
-               </div>
-            </div>
-        </div>
 
-        <div class="sweetcourbox">
-            <div class="container-fuild">
-                <div class="row-fuild">
-                    <button class="btn btn-danger" id="btnclose">
-                        <i class="fa fa-times"></i>
-                    </button>
-                    <div class="col-lg-12" id="header">
-                        <header>
-                            <div class="col-lg-1">
-                                <button class="btn btn-primary" id="printdata">
-                                    <i class="fa fa-print"></i>
-                                </button>
-                            </div>
-                            <p>Condidats List </p>
-                        </header>
-                    </div>
-                </div>
-                <div class="row-fuild">
-                    <div class="col-lg-10  contenu">
-                        <div class="table-responsive" id="clientid">
-                            <table id="data-table-basic" class="table table-striped">
-                                <thead>
-                                <tr>
-                                    <th data-column-id="id">N</th>
-                                    <th data-column-id="firstname">First Name</th>
-                                    <th data-column-id="lastname">Last Name</th>
-                                    <th data-column-id="email">Email</th>
-                                    <th data-column-id="datenaissance">Date naissance</th>
-                                    <th data-column-id="telephone">Telephone</th>
-                                    <th data-column-id="adress">Adress</th>
-                                    <th data-column-id="piecetype">CIN/PASSPORT</th>
-                                    <th data-column-id="numpiece">Resultat</th>
-                                    <th data-column-id="delete"></th>
-                                </tr>
-                                </thead>
-                                <tbody class="clientsss">
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <div class="row-fuild carblock">
-                    <div class="col-lg-12" id="header">
-                        <header>
-                            <p>Car </p>
-                        </header>
-                    </div>
-                    <div class="row-fuild">
-                        <div class="col-lg-10 contenu">
-                            <div class="table-responsive" id="clientid">
-                                <table id="data-table-basic" class="table table-striped">
-                                    <thead>
-                                    <tr>
-                                        <th data-column-id="id">#</th>
-                                        <th data-column-id="firstname"> Name</th>
-                                        <th data-column-id="lastname">Matricule</th>
-                                        <th data-column-id="cin">Date fin assurence</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody class="car">
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row-fuild">
-                    <div class="col-lg-12" id="header">
-                        <header>
-                            <p>Moniteur </p>
-                        </header>
-                    </div>
-                    <div class="row-fuild">
-                        <div class="col-lg-10 contenu">
-                            <div class="table-responsive" id="clientid">
-                                <table id="data-table-basic" class="table table-striped">
-                                    <thead>
-                                    <tr>
-                                        <th data-column-id="id">#</th>
-                                        <th data-column-id="firstname">First Name</th>
-                                        <th data-column-id="lastname">Last Name</th>
-                                        <th data-column-id="email">Email</th>
-                                        <th data-column-id="telephone">Telephone</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody class="moniteur">
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- fin box-->
+        @include('admin/cours.create')
+        @include('admin/cours.ShowCour')
         <div class="row">
                 <div class="col-lg-12" id="header">
                     <header>
                         <p class="text-center"> </p>
-                        <ul class="actions">
-                            <a href="{{ route('cours.create') }}"><i class="md md-person-add"></i></a>
-                        </ul>
                     </header>
                 </div><hr>
                 <div class="col-lg-12 contenu">
                     <div class="col-lg-10 col-lg-offset-1"><hr>
                         <div id="calendar">
+
                         </div>
                     </div>
                 </div>
@@ -171,16 +32,15 @@
 @stop
 
 @section('header')
-<link href="{{asset('bower_components/subscribe-betterjs/subscribe_better.css')}}" rel="stylesheet">
 <link href="{{asset('bower_components/select2/dist/css/select2.css')}}"  rel="stylesheet">
 @stop
 
 @section('footer')
-    <script src="{{asset('bower_components/subscribe-betterjs/subscribe_better.min.js')}}"></script>
-    <script src="{{asset('bower_components/select2/dist/js/select2.js')}}"></script>
+    <script src="{{asset('bower_components/subscribe-betterjs/subscribe_better.min.js')}}" type="text/javascript"></script>
+    <script src="{{asset('bower_components/select2/dist/js/select2.js')}}" type="text/javascript"></script>
     <script>
-        $(document).ready(function(){
 
+        $(document).ready(function(){
             var CondidatsId = [],formattedeventdata = [],newevent = [], eventArray= [];
             var vehicule_id,condidat_id,teacher_id;
             var date = new Date();
@@ -192,6 +52,11 @@
             var $eventSelect = $(".js-example-events");
             $eventSelect.on("select2:select", function (e) { log("select", e); });
             $eventSelect.on("select2:unselect", function (e) { log("unselect", e); });
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
 
             function log (name, evt) {
                 if (!evt) {
@@ -217,6 +82,7 @@
             function showbox(){
                 $(".sweet-overlay").fadeIn(300);
                 $(".sweeta").slideDown(600);
+
 
             }
 
@@ -440,19 +306,18 @@
                             tr.append("<td>" + data.success[i].date_naisssance + "</td>");
                             tr.append("<td>" + data.success[i].tel + "</td>");
                             tr.append("<td>" + data.success[i].adresss + "</td>");
+                            tr.append("<td>" + data.success[i].type_piece + "</td>");
                             tr.append("<td>" + data.success[i].num_piece + "</td>");
-                            tr.append("<td><input type='checkbox'></td>");
-
                             $('.clientsss').append(tr);
                             // add condidats to pdf table
                             var condidat=[
-                                data.success[i].id,
                                 data.success[i].name,
                                 data.success[i].prenom,
                                 data.success[i].email,
                                 data.success[i].date_naisssance,
                                 data.success[i].tel,
                                 data.success[i].adresss,
+                                data.success[i].type_piece,
                                 data.success[i].num_piece
                             ];
                             condidats.push(condidat);
@@ -481,34 +346,39 @@
                             $('.carblock').hide();
                         }
                         /* print html data to pdf file */
-                        var columns = ["N°","First Name", "Last Name", "Email","Date naissance","Telephone","Adress","CIN/PASSPORT","Resultat"];
+                        var columns = ["First Name", "Last Name", "Email","Date naissance","Telephone","Adress","Type piece","Numero piece"];
+                        var rows = [
+                            [1, "Shaw", "Tanzania",],
+                            [2, "Nelson", "Kazakhstan",],
+                            [3, "Garcia", "Madagascar",],
+                        ];
 
                         $("#printdata").on('click',function(){
-                            var doc = new jsPDF('p', 'pt'),margin=2,verticalOffset=margin;
-                            doc.setFontSize(10);
-                            doc.text(20,50,"Ecole : ");
-                            doc.text(50,50,"tunis");
-                            doc.text(20,80,"Date : ");
-                            doc.text(50,80,"09/05/2016");
-                            doc.text(400,65,"Nom d'examinateur : ");
-                            doc.text(492,65,"Mohamed ben salah");
-                            doc.setFontSize(14);
-                            doc.text(250,120,'Liste des condidats');
-                            doc.autoTable(columns,
-                                          condidats,
-                                    {
-                                        styles:{
-                                            fontSize:8,
-                                            lineWidth:0.3,
-                                            font: "helvetica", // helvetica, times, courier
-                                            fontStyle:'normal',
-                                            rowHeight:20,
-                                            columnWidth:'auto',
-                                        },
-                                        startY:150,
-
-                                    });
-                            doc.save('cour.pdf');
+                            var doc = new jsPDF('p', 'pt');
+                            doc.autoTable(columns, condidats, {
+                                styles: {
+                                    fillColor: [100, 255, 255],
+                                    fontSize:8,
+                                },
+                                columnStyles: {
+                                    id: {fillColor: 255}
+                                },
+                                margin: {top: 60},
+                                beforePageContent: function(data) {
+                                    doc.text("Header", 40, 30);
+                                }
+                            });
+                            doc.autoTable(columns, rows, {
+                                styles: {fillColor: [100, 255, 255]},
+                                columnStyles: {
+                                    id: {fillColor: 255}
+                                },
+                                margin: {top: 200},
+                                beforePageContent: function(data) {
+                                    doc.text("Header", 40, 30);
+                                }
+                            });
+                            doc.save('table.pdf');
                         });
                     }).fail(function(data){
                         sweetAlert('Oops...', 'Something went wrong !', 'error');
@@ -519,7 +389,7 @@
 
             });
         });
-
     </script>
 @stop
+
 

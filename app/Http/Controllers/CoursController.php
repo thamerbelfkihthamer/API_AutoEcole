@@ -7,7 +7,6 @@ use autoecole\Client;
 use autoecole\Cours;
 use autoecole\Moniteur;
 use autoecole\Vehicules;
-//use Illuminate\Http\Request;
 use autoecole\Http\Requests;
 use autoecole\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
@@ -51,6 +50,7 @@ class CoursController extends Controller
                'moniteurs'=>$moniteurs
            ));
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -147,10 +147,12 @@ class CoursController extends Controller
     public function destroy($id)
     {
 
+        /*
         $cour = Cours::find($id);
         $cour->delete();
         return redirect('cours');
 
+        */
     }
 
     public function send(){

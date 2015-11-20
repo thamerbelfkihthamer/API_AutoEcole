@@ -3,7 +3,7 @@ module('Options - Translations');
 var $ = require('jquery');
 var Options = require('select2/options');
 
-test('partials dictionaries can be passed', function (assert) {
+test('partial dictionaries can be passed', function (assert) {
   var options = new Options({
     language: {
       searching: function () {
@@ -17,7 +17,7 @@ test('partials dictionaries can be passed', function (assert) {
   assert.equal(
     translations.get('searching')(),
     'Something',
-    'The partials dictionary still overrides translations'
+    'The partial dictionary still overrides translations'
   );
 
   assert.equal(

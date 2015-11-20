@@ -4,10 +4,11 @@ namespace autoecole\Http\Controllers;
 
 use autoecole\Autoecoletable;
 use autoecole\Vehicules;
-use Illuminate\Http\Request;
 use autoecole\Http\Requests;
 use autoecole\Http\Controllers\Controller;
 use Input;
+use Carbon\Carbon;
+use Request;
 
 class VehiculesController extends Controller
 {
@@ -24,6 +25,7 @@ class VehiculesController extends Controller
     {
         $vehicules = Vehicules::all();
         return view('admin.vehicules.index', compact('vehicules'));
+
     }
 
     /**
@@ -58,9 +60,9 @@ class VehiculesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
-        //
+
     }
 
     /**
@@ -102,9 +104,26 @@ class VehiculesController extends Controller
      */
     public function destroy($id)
     {
-        //
+
         $vehicule = Vehicules::find($id);
         $vehicule->delete();
         return redirect('vehicules');
+
+    }
+
+    public function getnotification()
+
+    {
+        if(Request::ajax()) {
+            $now = Carbon::today()->format('Y-m-d');
+            //dd($now->toDateTimeString();
+            $cour = Vehicules::all();
+
+            return response()->json([
+                'success'=>$cour,
+            ]);
+        }
+
+
     }
 }

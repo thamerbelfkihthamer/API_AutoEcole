@@ -15,8 +15,8 @@
             <div class="col-lg-12" id="header">
                 <header>
                     <p class="text-center"> </p>
-                    <ul class="actions">
-                        <a href="{{ route('moniteur.create') }}"><i class="md md-person-add"></i></a>
+                    <ul class="actions col-lg-offset-11">
+                        <a href="{{ route('moniteur.create') }}"><i class="fa fa-plus" style="color:#FFF;"></i></a>
                     </ul>
                 </header>
             </div><hr>
@@ -40,7 +40,7 @@
                                 <td>{{$moniteur->name}}</td>
                                 <td>{{$moniteur->prenom}}</td>
                                 <td>{{$moniteur->email}}</td>
-                                <td>{{$moniteur->tel}}</td>
+                                <td>{{$moniteur->telephone}}</td>
                                 <td>{{$moniteur->cin}}</td>
                             </tr>
                         @endforeach
@@ -69,6 +69,9 @@
                     iconRefresh: 'md-refresh',
                     iconUp: 'md-expand-less'
                 }
+            }).on("click.rs.jquery.bootgrid", function (e, columns, row)
+            {
+                return window.location = "<?= route('moniteur.index') ?>/" + row.id + "/edit";
             });
         });
     </script>

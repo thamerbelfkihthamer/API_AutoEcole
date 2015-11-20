@@ -15,8 +15,8 @@
             <div class="col-lg-12" id="header">
                 <header>
                     <p class="text-center"> </p>
-                    <ul class="actions">
-                        <a href="{{ route('vehicules.create') }}"><i class="md md-person-add"></i></a>
+                    <ul class="actions col-lg-offset-11">
+                        <a href="{{ route('vehicules.create') }}"><i class="fa fa-plus" style="color:#FFF;"></i></a>
                     </ul>
                 </header>
             </div><hr>
@@ -26,12 +26,11 @@
                         <thead>
                         <tr>
                             <th data-column-id="id">#</th>
-                            <th data-column-id="name">Name</th>
-                            <th data-column-id="matricule">Matricule</th>
-                            <th data-column-id="date_visite_technique">date visite technique</th>
-                            <th data-column-id="date_fin_assurence">date fin assurence</th>
-                            <th data-column-id="vidanfe">vidange</th>
-                            <th data-column-id="autoecole">AutoEcole</th>
+                            <th data-column-id="name">Marque</th>
+                            <th data-column-id="matricule">Immatriculation</th>
+                            <th data-column-id="date_visite_technique">Visite technique</th>
+                            <th data-column-id="date_fin_assurence">Expiration assurence</th>
+                            <th data-column-id="vidanfe">Vidange</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -70,6 +69,9 @@
                     iconRefresh: 'md-refresh',
                     iconUp: 'md-expand-less'
                 }
+            }).on("click.rs.jquery.bootgrid", function (e, columns, row)
+            {
+                return window.location = "<?= route('vehicules.index') ?>/" + row.id + "/edit";
             });
         });
     </script>

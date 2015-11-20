@@ -14,12 +14,21 @@ Condidat - Edit
         <div class="row">
             <div class="col-lg-12" id="header">
                 <header>
-                    <p class="text-center">New Etudient </p>
+                    <p class="text-center">Edit Condidat </p>
                 </header>
-            </div><hr>
+            </div><br><hr>
             <div class="col-lg-12 contenu">
+                <div class="row">
+                    <div class="col-lg-12">
+                        {!! Form::open(['route' => ['client.destroy', $client->id], 'method' => 'delete']) !!}
+                        <button class="text-right"><span class="glyphicon glyphicon-trash" style="color:black; cursor: pointer" ></span></button>
+                        {!!Form::close() !!}
+                    </div>
+                </div><hr>
+                <div class="row">
                     {!! Form::model($client ,['method'=>'PATCH','route'=>['client.update',$client->id]]) !!}
                     <div class="form-group {!! $errors->has('nom') ? 'has-error' : '' !!}">
+                            <div class="col-lg-4 col-lg-offset-1">
                         <div class="row mar">
                             <div class="input-field">
                                 {!! Form::label('First Name') !!}
@@ -48,6 +57,8 @@ Condidat - Edit
                                 {!! $errors->first('adresss', '<small>:message</small>') !!}
                             </div>
                         </div>
+                                </div>
+                            <div class="col-lg-4 col-lg-offset-1">
                         <div class="row mar">
                             <div class="input-field">
                                 {!! Form::label('Telephone') !!}
@@ -57,7 +68,7 @@ Condidat - Edit
                         </div>
                         <div class="row mar">
                             <div class="input-field date">
-                                {!! Form::text('date_naisssance','YYYY-MM-DD')!!}
+                                {!! Form::text('date_naisssance')!!}
                                 {!! $errors->first('date_naisssance', '<small>:message</small>') !!}
                             </div>
                         </div>
@@ -79,7 +90,10 @@ Condidat - Edit
                                 </div>
                             </div>
                         </div>
+                        </div></div>
                         {!! Form::close() !!}
+            </div>
+                </div>
             </div>
         </div>
     </div>
@@ -97,6 +111,12 @@ Condidat - Edit
                 <script>
                     $(document).ready(function(){
                       $("select").addClass("selectpicker");
+                        $(".date :first-child").addClass('datepicker');
+                        $('.datepicker').datepicker({
+                            format: 'yyyy-mm-dd',
+                            startDate: '-3555555d'
+                        });
+
                     });
                 </script>
 
