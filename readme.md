@@ -1,1 +1,1 @@
-Autoeole REST API
+Autoecole REST API
