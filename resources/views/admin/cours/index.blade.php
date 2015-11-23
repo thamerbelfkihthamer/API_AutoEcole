@@ -205,7 +205,6 @@
                     $("#selectcar").on('change',function(){
                         var optionselected = $(this).find("option:selected");
                         vehicule_id = optionselected.val();
-                        console.log(vehicule_id);
                     });
 
                     $("#selectcondidatconduite").on('change',function(){
@@ -215,8 +214,6 @@
                     $("#selectprof").on('change',function(){
                         var optionselected = $(this).find("option:selected");
                         teacher_id = optionselected.val();
-                        var ss = optionselected.text();
-                        console.log(ss);
                     });
 
                     $("#save-event").on('click',function(){
@@ -260,11 +257,9 @@
                                 dataType:'json',
                                 encode:true,
                             }).done(function(data){
-                                console.log(data);
                                 swal(       'Save!',       'Your Cour done.',       'success'     );
                             }).fail(function(data){
                                 sweetAlert('Oops...', 'Something went wrong !', 'error');
-                                console.log(data);
                             });
                         }else{
 

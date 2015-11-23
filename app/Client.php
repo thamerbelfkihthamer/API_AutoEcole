@@ -23,7 +23,7 @@ class Client extends Model
     public $timestamps = false;
 
     public function examen(){
-        return $this->belongsTo('autoecole\Examens','examen_id');
+        return $this->belongsToMany('autoecole\Examens','Client_Examens','client_id','examens_id');
     }
 
     public  function autoecole(){

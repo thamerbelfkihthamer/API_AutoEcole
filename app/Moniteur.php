@@ -16,4 +16,7 @@ class Moniteur extends Model
     public function cours(){
         return $this->hasMany('autoecole\cours');
     }
+    public function examen(){
+        return $this->hasMany('autoecole\examens');
+    }
 }

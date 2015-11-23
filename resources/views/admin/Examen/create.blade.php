@@ -1,61 +1,53 @@
-@extends('admin/index')
-@section('title', 'Index|Client')
-@section('body')
-    <div class="card">
-        <div class="card-header">
-            <h2>New Examen</h2>
-        </div>
-        <div class="card-body card-padding">
-            <div class="row">
-                <div class="col-sm-6">
-                    {!! Form::open(['url'=>'examen']) !!}
-                    <div class="form-group {!! $errors->has('nom') ? 'has-error' : '' !!}">
-                        <div class="input-field">
-                            {!! Form::label('centre', 'centre:') !!}
-                            {!! Form::text('centre') !!}
-                            {!! $errors->first('centre', '<small class="help-block">:message</small>') !!}
-                        </div>
-                        <div class="input-field">
-                            {!! Form::label('date examen', 'date examen:') !!}
-                            {!! Form::input('date','date_examen')!!}
-                            {!! $errors->first('date_examen', '<small class="help-block">:message</small>') !!}
-                        </div>
 
-                        <div class="input-field">
-                            {!! Form::label('resultat', 'resultat:') !!}
-                            {!! Form::text('resultat') !!}
-                            {!! $errors->first('resultat', '<small class="help-block">:message</small>') !!}
-                        </div>
+    <!-- Modal -->
+    <div class="modal fade" id="addexamen" role="dialog">
+        <div class="modal-dialog">
 
-                        <div class="input-field">
-                            {!! Form::label('numero liste', 'numero liste:') !!}
-                            {!! Form::text('numero_liste') !!}
-                            {!! $errors->first('numero_liste', '<small class="help-block">:message</small>') !!}
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 style="color:green;" class="text-center"> add Examen</h4>
+                </div>
+                <div class="modal-body">
+                    <form role="form">
+                        <div class="form-group">
+                            <label for="selectcodeconduit">Select Examen :</label>
+                            <select id="selectcodeconduit" class="form-control">
+                                <option value="code" selected="selected">CODE</option>
+                                <option value="conduite">CONDUITE</option>
+                            </select><br>
                         </div>
                         <div class="form-group">
-                            <select name="autoecoletable_id">
-                                @foreach( $autoecole as $auto){
-                                <option value="{{$auto->id}}">{{$auto->name}}</option>
-                                }
+                            <label for="selectprof">Select Teacher :</label>
+                            <select  class="form-control" id="selectprof">
+                                @foreach($moniteurs as $moniteur)
+                                    <option value="{{$moniteur->id}}">{{$moniteur->name}} {{$moniteur->prenom}}</option>
+                                @endforeach
+                            </select><br>
+                        </div>
+                        <div class="form-group">
+                            <label id="labcar" for="selectcar">Select Car :</label>
+                            <select id="selectcar" class="form-control">
+                                @foreach( $cars as $car)
+                                    <option value="{{$car->id}}">{{$car->name}}</option>
+                                @endforeach
+                            </select><br>
+                        </div>
+                        <div class="form-group">
+                            <label for="selectcondidat">Select Condidat(s) :</label>
+                            <select id="selectcondidat" class="form-control" multiple="multiple" class="js-example-placeholder-multiple js-event-log js-example-events">
+                                @foreach($clients as $client)
+                                    <option  value="{{$client->id}}">{{$client->name}}{{$client->prenom}}</option>
                                 @endforeach
                             </select>
                         </div>
-                        <div class="">
-                            {!! Form::submit('create', ['class'=>'btn primary']) !!}
-                        </div>
-                        {!! Form::close() !!}
-                    </div>
+                    </form>
                 </div>
-
+                <div class="modal-footer">
+                    <div  id="save-Examen" class="btn btn-default btn-success pull-left"><span class="glyphicon glyphicon-ok-sign"></span> Save</div>
+                    <button type="submit" class="btn btn-default btn-danger pull-right" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
+                </div>
             </div>
-            @stop
-
-            @section('header')
-                <link href="{{ asset('vendors/bower_components/bootstrap-select/dist/css/bootstrap-select.css') }}" rel="stylesheet">
-                <link href="{{ asset('vendors/chosen_v1.4.2/chosen.min.css') }}" rel="stylesheet">
-            @stop
-
-            @section('footer')
-                <script src="{{ asset('vendors/bower_components/bootstrap-select/dist/js/bootstrap-select.js') }}"></script>
-                <script src="{{ asset('vendors/chosen_v1.4.2/chosen.jquery.min.js') }}"></script>
-            @stop
+        </div>
+    </div>

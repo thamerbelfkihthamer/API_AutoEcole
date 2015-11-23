@@ -8,9 +8,7 @@ body{
 h3{
     font-family: 'Titillium Web', sans-serif;
 }
-.fade.in{
-    z-index: 9;
-}
+
 #btnclose{
     position:absolute;
     top: 0%;
@@ -126,7 +124,6 @@ a.list-group-item, button.list-group-item{
     border-radius: 0px;
     margin-bottom:0px;
     height: 2px;
-    color: #FFFFFF;
     z-index: 99;
 }
 .mar{

@@ -14,12 +14,12 @@ class CreateExamenTable extends Migration
     {
         Schema::create('examens', function (Blueprint $table) {
             $table->increments('id');
-            $table->date('date_examen');
+            $table->string('type');
+            $table->dateTime('starttime');
+            $table->dateTime('endtime');
             $table->string('resultat');
-            $table->integer('numero_liste');
-            $table->string('centre');
-            $table->integer('examentype_id');
-            $table->integer('autoecoletable_id');
+            $table->integer('vehicules_id');
+            $table->integer('moniteur_id');
             $table->softDeletes();
             $table->timestamps();
 

@@ -3,13 +3,16 @@
 namespace autoecole\Http\Controllers;
 
 use autoecole\Autoecoletable;
+use autoecole\Client;
 use autoecole\Examens;
 //use Illuminate\Http\Request;
 use autoecole\Http\Requests;
 use autoecole\Http\Controllers\Controller;
+use autoecole\Moniteur;
+use autoecole\Vehicules;
 use Input;
 use Request;
-
+use Illuminate\Support\Facades\DB;
 class ExamenController extends Controller
 {
     /**
@@ -24,8 +27,15 @@ class ExamenController extends Controller
 
     public function index()
     {
-        $examens = Examens::has('autoecole')->get();
-        return view('admin.examen.index', compact('examens'));
+        $car = Vehicules::all();
+        $clients = Client::all();
+        $moniteurs = Moniteur::all();
+
+        return view('admin.examen.index')->with(array(
+                     'clients'=>$clients,
+                      'moniteurs'=>$moniteurs,
+                       'cars'=>$car,
+                      ));
     }
 
     /**
@@ -102,20 +112,49 @@ class ExamenController extends Controller
      */
     public function destroy($id)
     {
+        /*
         $examen = Examens::find($id);
         $examen->delete();
         return redirect('examen');
 
+        */
+
     }
 
-    public function send(){
+    public function addexamen(){
 
-       if(Request::ajax()){
-           $data = Input::all();
-          // Examens::create($data);
-           return response()->json([
-               'success' => $data,
-           ]);
-       }
+        if (Request::ajax()) {
+            $data  =  Input::all();
+            $type=$data['type'];
+
+            if($type=="conduite"){
+                $client_id = $data['client_id'];
+                $conduitdata = Input::only('type','vehicules_id','moniteur_id','starttime','endtime');
+                $id = DB::table('examens')->insertGetId($conduitdata);
+                $examen = Examens::find($id);
+                $examen->clients()->attach($client_id);
+                return response()->json([
+                    'success' => $id,
+                ]);
+            }
+
+            if($type=="code"){
+                $client_id = $data['client_id'];
+                $conduitdata=Input::only('type','moniteur_id','starttime','endtime');
+                $id = DB::table('examens')->insertGetId($conduitdata);
+                $examen = Examens::find($id);
+                $examen->Clients()->attach($client_id);
+                return response()->json([
+                    'success' => $client_id,
+                ]);
+            }
+        }
+    }
+
+    public function getexamen(){
+
+        if(Request::ajax()){
+            return Examens::all();
+        }
     }
 }

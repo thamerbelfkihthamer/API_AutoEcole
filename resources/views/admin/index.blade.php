@@ -10,7 +10,6 @@
     <link href='https://fonts.googleapis.com/css?family=Titillium+Web' rel='stylesheet' type='text/css'>
     <link href="{{ asset('bower_components/jquery.bootgrid/dist/jquery.bootgrid.min.css') }}" rel="stylesheet">
     <link href="{{asset('bower_components/sweetalert2/dist/sweetalert2.css')}}" rel="stylesheet">
-     
     <link href="{{asset('bower_components/fullcalendar/dist/fullcalendar.css')}}" rel="stylesheet"/>
     <link href="{{asset('bower_components/bootstrap/dist/css/bootstrap.css')}}" rel="stylesheet">
     <link href="{{asset('bower_components/select2/dist/css/select2.css')}}" rel="stylesheet">

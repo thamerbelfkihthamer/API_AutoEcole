@@ -34,7 +34,8 @@ Route::get('client/{client}','ClientController@destroy');
 
 Route::resource('examen','ExamenController');
 Route::get('examen/{examen}','ExamenController@destroy');
-Route::post('examen/send','ExamenController@send');
+Route::post('examen/addexamen','ExamenController@addexamen');
+Route:post('examen/getexamen','ExamenController@getexamen');
 
 Route::resource('autoecole','AutoecoleController');
 Route::get('autoecole/{autoecole}','AutoecoleController@destroy');
@@ -45,12 +46,12 @@ Route::post('vehicules/getnotification','VehiculesController@getnotification');
 
 Route::resource('cours','CoursController');
 Route::get('cours/{cours}','CoursController@destroy');
-Route::resource('moniteur','MoniteurController');
-Route::get('moniteur/{moniteur}','MoniteurController@destroy');
-
 Route::post('cours/send','CoursController@send');
 Route::post('cours/getevent','CoursController@fullcalanderevent');
 Route::post('cours/getcondidat','CoursController@getCondidat');
+
+Route::resource('moniteur','MoniteurController');
+Route::get('moniteur/{moniteur}','MoniteurController@destroy');
 
 
 
