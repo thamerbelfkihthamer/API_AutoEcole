@@ -55,7 +55,7 @@ class SuperAdminController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $data)
+    public function store(Requests\Createadmin $data)
     {
         $role = $data['roles_id'];
         if($role == 1){

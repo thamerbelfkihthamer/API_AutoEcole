@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Ven 11 Décembre 2015 à 10:51
+-- Généré le :  Ven 11 Décembre 2015 à 16:02
 -- Version du serveur :  5.6.17
 -- Version de PHP :  5.5.12
 
@@ -82,14 +82,16 @@ CREATE TABLE IF NOT EXISTS `client_cours` (
   `client_id` int(11) NOT NULL,
   `cour_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Contenu de la table `client_cours`
 --
 
 INSERT INTO `client_cours` (`id`, `client_id`, `cour_id`) VALUES
-(1, 2, 1);
+(1, 2, 1),
+(2, 1, 2),
+(3, 3, 2);
 
 -- --------------------------------------------------------
 
@@ -102,7 +104,14 @@ CREATE TABLE IF NOT EXISTS `client_examen` (
   `client_id` int(11) NOT NULL,
   `examen_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Contenu de la table `client_examen`
+--
+
+INSERT INTO `client_examen` (`id`, `client_id`, `examen_id`) VALUES
+(1, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -123,14 +132,15 @@ CREATE TABLE IF NOT EXISTS `cours` (
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
 
 --
 -- Contenu de la table `cours`
 --
 
 INSERT INTO `cours` (`id`, `type`, `sujet`, `starttime`, `endtime`, `vehicules_id`, `moniteur_id`, `autoecoletable_id`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, 'conduite', '', '2015-12-07 10:00:00', '2015-12-07 12:00:00', 3, 2, 0, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+(1, 'conduite', '', '2015-12-07 10:00:00', '2015-12-07 12:00:00', 3, 2, 0, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(2, 'code', '', '2015-12-09 10:00:00', '2015-12-09 12:00:00', 0, 2, 0, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -150,7 +160,14 @@ CREATE TABLE IF NOT EXISTS `examens` (
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
+
+--
+-- Contenu de la table `examens`
+--
+
+INSERT INTO `examens` (`id`, `type`, `starttime`, `endtime`, `resultat`, `vehicules_id`, `moniteur_id`, `deleted_at`, `created_at`, `updated_at`) VALUES
+(1, 'conduite', '2015-12-08 10:00:00', '2015-12-08 12:00:00', '', 2, 2, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -330,7 +347,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`),
   UNIQUE KEY `users_email_unique` (`email`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=6 ;
 
 --
 -- Contenu de la table `users`
@@ -338,7 +355,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `autoecoletable_id`, `roles_id`, `remember_token`, `created_at`, `updated_at`) VALUES
 (1, 'owner aymen', 'thamer.belfkih@hotmail.com', '250940321', 0, 0, NULL, '2015-12-10 12:27:41', '2015-12-10 13:43:49'),
-(2, 'thamer', 'thamerdod@gmail.com', '$2y$10$3CZ6ja28ZdcOx4/MKujz7OYtHX8.UrIkW0S5vdDMEVIFXGnjjI3J6', 0, 0, NULL, '2015-12-10 13:20:17', '2015-12-10 13:20:17'),
+(2, 'thamerdod', 'thamerdod@gmail.com', '$2y$10$hIC8S4DWL3t8dAku.Mk9reLkghN5jjN3QAzuLREYfxExACDic9u1q', 0, 0, NULL, '2015-12-10 13:20:17', '2015-12-11 10:58:38'),
 (3, 'bilel', 'bilel@gmail.com', '$2y$10$7JYysMSl5wyOd1.NTQnWnOEXVOqfEEZ0Qzq/1aOZF1mTas2jqfdky', 0, 0, NULL, '2015-12-10 13:31:18', '2015-12-10 13:31:18'),
 (4, 'thamerowner', 'thamerowner.belfkih@hotmail.com', '$2y$10$GH/O6GB2NaCAbLOUto1.Gu5JWpBp45w5xGi34t735tkq47MCGKHoq', 0, 0, NULL, '2015-12-11 08:12:14', '2015-12-11 08:12:14');
 
