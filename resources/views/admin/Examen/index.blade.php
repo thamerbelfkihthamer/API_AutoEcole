@@ -5,22 +5,26 @@
 @section('body')
     <div class="form-groupp">
         <div class="row">
-            <div class="col-lg-12" id="header">
+            <div class=" col-lg-12" id="header">
                 <header>
                     <p>Home | Examen | List </p>
                 </header>
             </div>
         </div>
         @include('admin/Examen.create')
+        @include('admin/Examen.show')
         <div class="row">
-            <div class="col-lg-12" id="header">
+            <div class=" col-lg-12" id="header">
                 <header>
                     <p class="text-center">Examen</p>
                 </header>
             </div><hr>
-            <div class="col-lg-12 contenu">
+            <div class=" col-lg-12 contenu">
+                <div class=" col-lg-10 col-lg-offset-1"><hr>
                     <div id="calendar">
+
                     </div>
+                </div>
             </div>
         </div>
     </div>
@@ -29,18 +33,28 @@
 
 @section('header')
     <link href="{{asset('bower_components/select2/dist/css/select2.css')}}"  rel="stylesheet">
+
 @stop
 
 @section('footer')
     <script src="{{asset('bower_components/select2/dist/js/select2.js')}}" type="text/javascript"></script>
     <script>
         $(document).ready(function(){
-            var date = new Date();
-            var d = date.getDate();
-            var m = date.getMonth();
-            var y = date.getFullYear();
-            var CondidatsId = [];
-            var typeexamen,car_id,moniteur_id,condidat_id;
+
+            /* Start variable declaration*/
+                var date = new Date();
+                var d = date.getDate();
+                var m = date.getMonth();
+                var y = date.getFullYear();
+                var CondidatsId = [];
+                var typeexamen,car_id,moniteur_id,condidat_id;
+            var moniteurcol =[];
+            var vehiculecol = [];
+            var moniteurrow = [];
+            var vehiculerow = [];
+            var moniteurhome = [];
+            var vehiculehome =[];
+            /*End variable declaration */
 
             /* Start multiple select */
 
@@ -52,26 +66,29 @@
                 $eventSelect.on("select2:select", function (e) { log("select", e); });
                 $eventSelect.on("select2:unselect", function (e) { log("unselect", e); });
 
-            function log (name, evt) {
-                if (!evt) {
-                    var args = "{}";
-                } else {
-                    if(name ==="select"){
-                        CondidatsId.push(evt.params.data.id);
-                    }
-                    else if(name === "unselect"){
-                        var index =  CondidatsId.indexOf(evt.params.data.id);
-                        if(index > -1){
-                            CondidatsId.splice(index,1);
+                function log (name, evt) {
+                    if (!evt) {
+                        var args = "{}";
+                    } else {
+                        if(name ==="select"){
+                            CondidatsId.push(evt.params.data.id);
+                        }
+                        else if(name === "unselect"){
+                            var index =  CondidatsId.indexOf(evt.params.data.id);
+                            if(index > -1){
+                                CondidatsId.splice(index,1);
+                            }
                         }
                     }
                 }
-            }
 
             /* End multiple select*/
 
+            /*------------------------------------------------
+                         Start full calendar
+             ------------------------------------------------*/
 
-console.log(CondidatsId);
+
             $('#calendar').fullCalendar({
                 header: {
                     left: 'prev,next today',
@@ -103,7 +120,9 @@ console.log(CondidatsId);
                 defaultView:'agendaWeek',
                 eventLimit:true,
 
-                /*Start  push all examen to calander */
+                /*--------------------------------------------------------------
+                                  Start  render all examen to calander
+                ----------------------------------------------------------------*/
                 events:function(start, end, timezone, callback){
                     $.ajax({
                         headers: {'X-CSRF-TOKEN': '<?= csrf_token()?>'},
@@ -128,13 +147,19 @@ console.log(CondidatsId);
                     });
                 },
 
-                /* End push all examen to calander*/
+
+                /*--------------------------------------------------------------
+                                 End  render all examen to calander
+                 ----------------------------------------------------------------*/
+
+                /*--------------------------------------------------------------
+                                   Start  Select and create examen
+                 ----------------------------------------------------------------*/
 
                 select: function(start, end) {
                     $("#addexamen").modal();
-                    $("#selectcar").hide();
                     $("#labcar").hide();
-                    $("#selectmoniteur").hide();
+                    $("#labconduit").hide();
 
                      typeexamen ="code";
                     $("#saveExamen").unbind();
@@ -143,15 +168,22 @@ console.log(CondidatsId);
                         var optionselected = $(this).find("option:selected");
                          typeexamen = optionselected.val();
                         if (typeexamen === "conduite") {
-                            $("#selectcar").fadeIn(1000);
                             $("#labcar").fadeIn(1000);
-                            $("#selectmoniteur").fadeIn(1000);
+                            $("#labconduit").fadeIn(1000);
+                            $("#condidats").fadeOut(1000);
                         }
                         if (typeexamen === "code") {
+                            $("#labcar").fadeOut(1000);
+                            $("#labconduit").fadeOut(1000);
+                            $("#condidats").fadeIn(1000);
                             var optionselected = $(this).find("option:selected");
                             typeexamen = optionselected.val();
                           }
                     });
+
+                    /*--------------------------------------------------------------
+                                 Start On change listener for all select box
+                     ----------------------------------------------------------------*/
 
                     $("#selectcar").on('change', function () {
                         var optionselected = $(this).find("option:selected");
@@ -161,11 +193,19 @@ console.log(CondidatsId);
                         var optionselected = $(this).find("option:selected");
                         moniteur_id = optionselected.val();
                     });
-                    $("#selectcondidat").on('change', function () {
+                    $("#selectcondidatconduite").on('change', function () {
                         var optionselected = $(this).find("option:selected");
                         condidat_id = optionselected.val();
                     });
 
+                    /*--------------------------------------------------------------
+                               End On change listener for all select box
+                     ----------------------------------------------------------------*/
+
+
+                    /*--------------------------------------------------------------
+                                     Start Save Examen processing
+                     ----------------------------------------------------------------*/
                     $("#save-Examen").on('click',function(){
                         $("#addexamen").modal("hide");
                         if(typeexamen !==""){
@@ -220,8 +260,174 @@ console.log(CondidatsId);
                         }
                     });
 
+                    /*--------------------------------------------------------------
+                                  End Save Examen processing
+                     ----------------------------------------------------------------*/
+
+
+                },
+                /*--------------------------------------------------------------
+                                 End  Select and create examen
+                 ----------------------------------------------------------------*/
+
+
+                /*---------------------------------------------------------------
+                                     Start examen click processing
+                 ---------------------------------------------------------------*/
+                editable: true,
+                eventClick: function(event,jsEvent,view){
+                    if($("#showexamen").modal()){
+                        $('.clientsss').empty();
+                        $('.moniteur').empty();
+                        $('.car').empty();
+                    }
+
+
+                    var formDate= {
+                        'eventid':event.id,
+                        'type':event.title,
+                    }
+
+                    $.ajax({
+                        headers: {'X-CSRF-TOKEN': '<?= csrf_token()?>'},
+                        url:'examen/getcondidatsexamen',
+                        type:'POST',
+                        data: formDate,
+                        dataType:'json',
+                        encode:true,
+                    }).done(function(data){
+                        var tr;
+                        var condidats=[];
+                        for (var i = 0; i < data.condidats.length; i++) {
+                            tr = $('<tr/>');
+                            tr.append("<td>" + data.condidats[i].id + "</td>");
+                            tr.append("<td>" + data.condidats[i].name + "</td>");
+                            tr.append("<td>" + data.condidats[i].prenom + "</td>");
+                            tr.append("<td>" + data.condidats[i].email + "</td>");
+                            tr.append("<td>" + data.condidats[i].date_naisssance + "</td>");
+                            tr.append("<td>" + data.condidats[i].tel + "</td>");
+                            tr.append("<td>" + data.condidats[i].adresss + "</td>");
+                            tr.append("<td>" + data.condidats[i].num_piece + "</td>");
+                            $('.clientsss').append(tr);
+                            // add condidats to pdf table
+                            var condidat=[
+                                data.condidats[i].name,
+                                data.condidats[i].prenom,
+                                data.condidats[i].email,
+                                data.condidats[i].date_naisssance,
+                                data.condidats[i].tel,
+                                data.condidats[i].adresss,
+                                data.condidats[i].type_piece,
+                                data.condidats[i].num_piece
+                            ];
+                            condidats.push(condidat);
+                        }
+                         for(var i=0;i<data.examinateur.length;i++) {
+                             tr = $('<tr/>');
+                             tr.append("<td>" + data.examinateur[i].id + "</td>");
+                             tr.append("<td>" + data.examinateur[i].name + "</td>");
+                             tr.append("<td>" + data.examinateur[i].prenom + "</td>");
+                             tr.append("<td>" + data.examinateur[i].email + "</td>");
+                             tr.append("<td>" + data.examinateur[i].telephone + "</td>");
+                             $('.moniteur').append(tr);
+                             moniteurrow = [
+                                 data.examinateur[i].id,
+                                 data.examinateur[i].name,
+                                 data.examinateur[i].prenom,
+                                 data.examinateur[i].email,
+                                 data.examinateur[i].telephone
+                             ]
+                             moniteurhome.push(moniteurrow);
+                         }
+                        if(data.examen.type=="conduite") {
+                            $('.carblock').show();
+                            for (var i = 0; i < data.vehicule.length; i++) {
+                                tr = $("<tr/>");
+                                tr.append("<td>" + data.vehicule[i].id + "</td>");
+                                tr.append("<td>" + data.vehicule[i].name + "</td>");
+                                tr.append("<td>" + data.vehicule[i].matricule + "</td>");
+                                tr.append("<td>" + data.vehicule[i].date_fin_assurence + "</td>");
+                                $('.car').append(tr);
+                                vehiculerow = [
+                                        data.vehicule[i].id,
+                                                data.vehicule[i].name,
+                                                data.vehicule[i].matricule,
+                                                data.vehicule[i].date_fin_assurence
+                                        ]
+                                vehiculehome.push(vehiculerow);
+                            }
+                        }
+                        else{
+                            $('.carblock').hide();
+                        }
+                        /*---------------------------------------------------------
+                                         Start print html data to pdf file
+                         ------------------------------------------------------------*/
+                        var columns = ["First Name", "Last Name", "Email","Date naissance","Telephone","Adress","Type piece","Numero piece"];
+                        moniteurcol = ["#","Fist Name","LastName","Email","Telephone"];
+                        vehiculecol =["#","Name","Matricule","Date fin assurence"];
+
+                        $("#printexamen").on('click',function(){
+                            var doc = new jsPDF('p', 'pt');
+                            doc.autoTable(moniteurcol, moniteurhome, {
+                                styles: {fillColor: [100, 255, 255],
+                                    fontSize:8,},
+                                columnStyles: {
+                                    id: {fillColor: 255}
+                                },
+                                margin: {top: 200},
+                                beforePageContent: function(data) {
+                                    doc.text("Examinateur", 40, 170);
+
+                                }
+                            });
+                            moniteurhome = [];
+                            doc.autoTable(columns, condidats, {
+                                styles: {
+                                    fillColor: [100, 255, 255],
+                                    fontSize:8,
+                                },
+                                columnStyles: {
+                                    id: {fillColor: 255}
+                                },
+                                margin: {top: 60},
+                                beforePageContent: function(data) {
+                                    doc.text("Condidats", 40, 30);
+                                }
+                            });
+                            condidats = [];
+                            if(data.examen.type=="conduite") {
+                                doc.autoTable(vehiculecol, vehiculehome, {
+                                    styles: {
+                                        fillColor: [100, 255, 255],
+                                        fontSize: 8,
+                                    },
+                                    columnStyles: {
+                                        id: {fillColor: 255}
+                                    },
+                                    margin: {top: 300},
+                                    beforePageContent: function (data) {
+                                        doc.text("Vehicule", 40, 270);
+                                    }
+                                });
+                                vehiculehome =[];
+                            }
+                            doc.save('examen.pdf');
+                        });
+                    }).fail(function(data){
+                        sweetAlert('Oops...', 'Something went wrong !', 'error');
+                        console.log(data);
+                    });
+
+                    /*---------------------------------------------------------
+                                    End print html data to pdf file
+                     ------------------------------------------------------------*/
 
                 }
+
+                /*----------------------------------------------------------------
+                                    End examen click processing
+                 -----------------------------------------------------------------*/
             });
         });
     </script>

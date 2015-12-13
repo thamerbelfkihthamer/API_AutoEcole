@@ -71,18 +71,21 @@
             </div>
             @stop
             @section('header')
+                <link href="{{asset('bower_components/Materialize/dist/css/materialize.css')}}" rel="stylesheet">
             @stop
 
             @section('footer')
+                <script src="{{ asset('bower_components/Materialize/dist/js/materialize.js') }}" type="text/javascript"></script>
                 <script>
-                    $("select").addClass("selectpicker");
-                    $(".date :first-child").addClass('datepicker');
-                    $("select").addClass("selectpicker");
-                    $('.datepicker').datepicker({
-                        format: 'yyyy-mm-dd',
-                        startDate: '-3555555d'
+                    $(document).ready(function(){
+                        $(".date :first-child").addClass('datepicker');
+                        $("select").addClass("selectpicker");
+                        $('.datepicker').datepicker({
+                            format: 'yyyy-mm-dd',
+                            startDate: '-3555555d'
+                        });
+
                     });
                 </script>
 
             @stop
-</div>

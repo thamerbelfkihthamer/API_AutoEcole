@@ -19,7 +19,7 @@ class Examens extends Model
     public $timestamps = false;
 
     public function clients(){
-        return $this->belongsToMany('autoecole\Examens','Client_Examens','client_id','examens_id');    }
+        return $this->belongsToMany('autoecole\Client','Client_Examen','examen_id','client_id');    }
 
     public function examentype(){
 

@@ -45,8 +45,7 @@ class ExamenController extends Controller
      */
     public function create()
     {
-        //$autoecole = Autoecoletable::all();
-        //return view('admin.examen.create',compact('autoecole'));
+
 
     }
 
@@ -136,6 +135,8 @@ class ExamenController extends Controller
                 return response()->json([
                     'success' => $id,
                 ]);
+
+
             }
 
             if($type=="code"){
@@ -143,7 +144,8 @@ class ExamenController extends Controller
                 $conduitdata=Input::only('type','moniteur_id','starttime','endtime');
                 $id = DB::table('examens')->insertGetId($conduitdata);
                 $examen = Examens::find($id);
-                $examen->Clients()->attach($client_id);
+                $examen->Clients()->sync($client_id);
+
                 return response()->json([
                     'success' => $client_id,
                 ]);
@@ -155,6 +157,41 @@ class ExamenController extends Controller
 
         if(Request::ajax()){
             return Examens::all();
+        }
+    }
+
+    public function getcondidatsexamen(){
+
+        if(Request::ajax()){
+            $data = Input::all();
+            $type = $data['type'];
+            if($type=="code"){
+                $idexamen = $data['eventid'];
+                $examen = Examens::findOrNew($idexamen);
+                $condidats=Examens::find($idexamen)->clients()->get();
+                $examinateur = Examens::find($idexamen)->moniteur()->get();
+                return response()->json([
+                   'condidats'=>$condidats,
+                    'examinateur'=>$examinateur,
+                    'examen'=>$examen,
+                    'idexamen'=>$idexamen,
+                ]);
+            }
+            if($type=="conduite"){
+                $idexamen = $data['eventid'];
+                $examen = Examens::findOrNew($idexamen);
+                $condidats = Examens::find($idexamen)->clients()->get();
+                $moniteur= Examens::find($idexamen)->moniteur()->get();
+                $vehicule = Examens::find($idexamen)->vehicule()->get();
+
+                return response()->json([
+                    'condidats' =>$condidats,
+                    'examinateur' =>$moniteur,
+                    'vehicule'=>$vehicule,
+                    'examen'=>$examen,
+                    'idexamen'=>$idexamen,
+                ]);
+            }
         }
     }
 }

@@ -67,6 +67,10 @@ class AuthController extends Controller
         ]);
     }
 
+    protected  function getLogoutt(){
+        AuthenticatesUsers::getLogout();
+    }
+
 
 
 }

@@ -9,49 +9,49 @@
                     <span class="small italic">34 mins</span>
                 </a>
             </li>
-            <li>
+            <li data-toggle="modal" data-target="#myModal">
                 <a href="#">
                     <span class="label label-danger"><i class="fa fa-bolt"></i></span>
                     Server #3 overloaded.
                     <span class="small italic">34 mins</span>
                 </a>
             </li>
-            <li>
+            <li data-toggle="modal" data-target="#myModal">
                 <a href="#">
                     <span class="label label-danger"><i class="fa fa-bolt"></i></span>
                     Server #3 overloaded.
                     <span class="small italic">34 mins</span>
                 </a>
             </li>
-            <li>
+            <li data-toggle="modal" data-target="#myModal">
                 <a href="#">
                     <span class="label label-danger"><i class="fa fa-bolt"></i></span>
                     Server #3 overloaded.
                     <span class="small italic">34 mins</span>
                 </a>
             </li>
-            <li>
+            <li data-toggle="modal" data-target="#myModal">
                 <a href="#">
                     <span class="label label-danger"><i class="fa fa-bolt"></i></span>
                     Server #3 overloaded.
                     <span class="small italic">34 mins</span>
                 </a>
             </li>
-            <li>
+            <li data-toggle="modal" data-target="#myModal">
                 <a href="#">
                     <span class="label label-danger"><i class="fa fa-bolt"></i></span>
                     Server #3 overloaded.
                     <span class="small italic">34 mins</span>
                 </a>
             </li>
-            <li>
+            <li data-toggle="modal" data-target="#myModal">
                 <a href="#">
                     <span class="label label-danger"><i class="fa fa-bolt"></i></span>
                     Server #3 overloaded.
                     <span class="small italic">34 mins</span>
                 </a>
             </li>
-            <li>
+            <li data-toggle="modal" data-target="#myModal">
                 <a href="#">
                     <span class="label label-danger"><i class="fa fa-bolt"></i></span>
                     Server #3 overloaded.

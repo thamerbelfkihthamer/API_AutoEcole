@@ -26,21 +26,33 @@
                                 @endforeach
                             </select><br>
                         </div>
-                        <div class="form-group">
-                            <label id="labcar" for="selectcar">Select Car :</label>
+                        <div class="form-group" id="labcar">
+                            <label for="selectcar">Select Car :</label>
                             <select id="selectcar" class="form-control">
                                 @foreach( $cars as $car)
                                     <option value="{{$car->id}}">{{$car->name}}</option>
                                 @endforeach
                             </select><br>
                         </div>
-                        <div class="form-group">
-                            <label for="selectcondidat">Select Condidat(s) :</label>
-                            <select id="selectcondidat" class="form-control" multiple="multiple" class="js-example-placeholder-multiple js-event-log js-example-events">
+                        <div class="form-group" id="condidats">
+                            <div class="row">
+                                <div class="col-lg-4 col-lg-offset-2">
+                            <label  for="selectcondidat">Select Condidats :</label>
+                            <select id="selectcondidat" multiple="multiple" class="js-example-placeholder-multiple js-event-log js-example-events" placeholder="select condidat">
                                 @foreach($clients as $client)
                                     <option  value="{{$client->id}}">{{$client->name}}{{$client->prenom}}</option>
                                 @endforeach
                             </select>
+                            </div>
+                        </div>
+                        </div>
+                        <div class="form-group" id="labconduit">
+                            <label for="selectcondidatconduite">Select Condidat :</label>
+                            <select id="selectcondidatconduite" class="form-control">
+                                @foreach($clients as $client)
+                                    <option  value="{{$client->id}}">{{$client->name}}{{$client->prenom}}</option>
+                                @endforeach
+                            </select><hr>
                         </div>
                     </form>
                 </div>

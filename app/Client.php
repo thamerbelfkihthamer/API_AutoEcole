@@ -23,7 +23,7 @@ class Client extends Model
     public $timestamps = false;
 
     public function examen(){
-        return $this->belongsToMany('autoecole\Examens','Client_Examens','client_id','examens_id');
+        return $this->belongsToMany('autoecole\Examens','Client_Examen','client_id','examen_id');
     }
 
     public  function autoecole(){
@@ -31,7 +31,7 @@ class Client extends Model
     }
 
     public function cours(){
-        return $this->belongsToMany('autoecole\Cours','Client_Cours','client_id','cours_id');
+        return $this->belongsToMany('autoecole\Cours','Client_Cours','client_id','cour_id');
     }
 
 }

@@ -153,6 +153,7 @@ return [
         Illuminate\Html\HtmlServiceProvider::class,
         Bestmomo\Scafold\ScafoldServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
+        Zizaco\Entrust\EntrustServiceProvider::class,
 
 
     ],
@@ -213,6 +214,7 @@ return [
         'HTML'      => Illuminate\Html\HtmlFacade::class,
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
         'Notification' => Krucas\Notification\Facades\Notification::class,
+        'Entrust' => Zizaco\Entrust\EntrustFacade::class,
 
     ],
 

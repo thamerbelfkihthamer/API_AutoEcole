@@ -1,159 +1,96 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Document</title>
-    <link href="{{asset('bower_components/sweetalert2/dist/sweetalert2.css')}}" rel="stylesheet">
-    <link href="{{asset('vendors/bower_components/Materialize/dist/css/materialize.css')}}" rel="stylesheet">
-    <link href="{{asset('bower_components/fullcalendar/dist/fullcalendar.css')}}" rel="stylesheet"/>
-    <link href="{{ asset('app/css/index.css') }}" rel="stylesheet">
-
-</head>
-<body>
-
-
-            <div id="calendar">
-
+<!-- Modal -->
+<div class="modal fade" id="showcour" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title text-center" style="color:#004d40;">Liste de condidats</h4>
+                <button class="btn btn-danger" id="printcour">Print</button>
             </div>
-
-            <script src="{{ asset('vendors/bower_components/jquery/dist/jquery.min.js') }}"></script>
-            <script src="{{ asset('vendors/bootgrid/jquery.bootgrid.min.js') }}"></script>
-            <script src="{{asset('bower_components/moment/min/moment.min.js')}}"></script>
-            <script src="{{asset('bower_components/fullcalendar/dist/fullcalendar.js')}}"></script>
-            <script src="{{ asset('vendors/bower_components/Materialize/dist/js/materialize.js') }}"></script>
-            <script src="{{asset('bower_components/sweetalert2/dist/sweetalert2.min.js')}}"></script>
-    <script>
-        $(document).ready(function(){
-            var date = new Date();
-            var d = date.getDate();
-            var m = date.getMonth();
-            var y = date.getFullYear();
-
-
-
-            $('#calendar').fullCalendar({
-
-
-                header: {
-                    left: 'prev,next today',
-                    center: 'title',
-                    right: 'month,agendaWeek,agendaDay'
-                },
-
-                eventLimit:true,
-                events: [
-                    {
-                        title: 'My Event',
-                        start: '2015-09-30',
-                        description: 'This is a cool event'
-                    }
-                    // more events here
-                ],
-                buttonText: {
-                    today:    'today',
-                    month:    'month',
-                    week:     'week',
-                    day:      'day'
-                },
-                selectable:true,
-                selectHelper:true,
-                firstDay:1,
-                weekends:false,
-                businessHours:true,
-                select: function(start, end) {
-
-                    swal({
-                                title: 'Add Cour',
-                                html: '<input type="text" class="input-field" id="thamer" placeholder="courname"/>'+'<br><input type="text" placeholder="f" id="description" class="input-field" /><br><input type="text" placeholder="text" id="des" class="input-field" />',
-                                showCancelButton: true,
-                                confirmButtonText: 'Save !',
-                                closeOnConfirm: true
-                            },
-                            function(isConfirm)
-                            {
-                                var title = $('#thamer').val();
-                                var description = $("#description").val();
-                                if (title !== "") {
-                                    eventData = {
-                                        title: title,
-                                        description: description,
-                                        start: start,
-                                        end: end
-                                    };
-                                    $('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
-
-                                }
-
-                                $('#calendar').fullCalendar('unselect');
-                                setTimeout(function(){
-                                    if (isConfirm && title!=="") {
-
-                                        // insertion de nouvelle cour
-                                         var formDate= {
-                                               'name' : title
-
-                                         }
-                                        $.post({
-                                            url:'cours/send',
-                                            date: formDate,
-                                            datetype:'json',
-                                            encode:true,
-                                            error:function(xhr, textStatus, thrownError){
-                                                sweetAlert('Oops...', 'Something ajax!', 'error');
-                                            }
-
-
-                                        }).done(function(data){
-                                            swal(       'Save!',       'Your Cour done.',       'success'     );
-                                        });
-                                    }
-                                    else{
-                                        sweetAlert('Oops...', 'Something went wrong!', 'error');
-                                    }
-
-
-                                },200);
-
-                            });
-                }
-
-
-
-
-
-
-
-
-
-                //}
-                /*
-                 swal({
-                 title: "An input!",
-                 text: 'Write something interesting:',
-                 type: 'input',
-                 showCancelButton: true,
-                 closeOnConfirm: true,
-                 animation: "slide-from-top"
-                 },
-                 function(inputValue){
-                 console.log("You wrote", inputValue);
-                 title = inputValue;
-                 if (title) {
-                 eventData = {
-                 title: title,
-                 start: start,
-                 end: end
-                 };
-                 $('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
-                 }
-                 */
-
-            });
-        });
-
-
-
-    </script>
-
-</body>
-</html>
+            <div class="modal-body">
+                <div class="container-fuild">
+                    <div class="row-fuild">
+                        <div class="col-lg-12 col-md-12 col-sm-12  contenu">
+                            <div class="table-responsive" id="clientid">
+                                <table id="data-table-basic" class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th data-column-id="id">N</th>
+                                        <th data-column-id="firstname">First Name</th>
+                                        <th data-column-id="lastname">Last Name</th>
+                                        <th data-column-id="email">Email</th>
+                                        <th data-column-id="datenaissance">Date naissance</th>
+                                        <th data-column-id="telephone">Telephone</th>
+                                        <th data-column-id="adress">Adress</th>
+                                        <th data-column-id="piecetype">CIN/PASSPORT</th>
+                                        <th data-column-id="numpiece">Resultat</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody class="clientsss">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><br>
+            <div class="modal-header">
+                <h4 class="modal-title text-center" style="color: #004d40;">Moniteur</h4>
+            </div>
+            <div class="modal-body">
+                <div class="container-fuild">
+                    <div class="row-fuild">
+                        <div class="col-lg-12 contenu">
+                            <div class="table-responsive" id="clientid">
+                                <table id="data-table-basic" class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th data-column-id="id">#</th>
+                                        <th data-column-id="firstname">First Name</th>
+                                        <th data-column-id="lastname">Last Name</th>
+                                        <th data-column-id="email">Email</th>
+                                        <th data-column-id="telephone">Telephone</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody class="moniteur">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><br>
+            <div class="carblock">
+                <div class="modal-header">
+                    <h4 class="modal-title text-center" style="color: #004d40;">Vehicule</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fuild">
+                        <div class="row-fuild">
+                            <div class="col-lg-12 contenu">
+                                <div class="table-responsive" id="clientid">
+                                    <table id="data-table-basic" class="table table-striped">
+                                        <thead>
+                                        <tr>
+                                            <th data-column-id="id">#</th>
+                                            <th data-column-id="firstname"> Name</th>
+                                            <th data-column-id="lastname">Matricule</th>
+                                            <th data-column-id="cin">Date fin assurence</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody class="car">
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><br>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

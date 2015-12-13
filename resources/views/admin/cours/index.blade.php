@@ -13,13 +13,15 @@
         </div>
 
         @include('admin/cours.create')
-        @include('admin/cours.ShowCour')
+        @include('admin/cours.show')
         <div class="row">
                 <div class="col-lg-12" id="header">
                     <header>
-                        <p class="text-center"> </p>
+                        <p class="text-center">Cour</p>
                     </header>
                 </div><hr>
+        </div>
+        <div class="row">
                 <div class="col-lg-12 contenu">
                     <div class="col-lg-10 col-lg-offset-1"><hr>
                         <div id="calendar">
@@ -43,6 +45,7 @@
         $(document).ready(function(){
             var CondidatsId = [],formattedeventdata = [],newevent = [], eventArray= [];
             var vehicule_id,condidat_id,teacher_id;
+            var moniteurhome=[],vehiculehome =[];
             var date = new Date();
             var d = date.getDate(),m = date.getMonth(),y = date.getFullYear();
             $(".js-example-placeholder-multiple").select2({
@@ -73,47 +76,8 @@
                     }
                 }
             }
-            /* Start gestion box */
-
-            $("#selectcar").hide();
-            $("#selectcondidatconduite").hide();
-            $("#example-getting-started").hide();
-
-            function showbox(){
-                $(".sweet-overlay").fadeIn(300);
-                $(".sweeta").slideDown(600);
 
 
-            }
-
-            function showcourbox(){
-                $(".sweet-overlay").fadeIn(300);
-                $(".sweetcourbox").slideDown(600);
-            }
-
-
-            $("#btnclose").on('click',function(){
-                $(".sweet-overlay").fadeOut(300);
-                $(".sweetcourbox").slideUp(600);
-                $('.clientsss').empty();
-                $('.moniteur').empty();
-                $('.car').empty();
-            });
-
-            $("#cancel-box").on('click',function(){
-                $(".sweet-overlay").fadeOut(600);
-                $(".sweeta").slideUp(300);
-
-            });
-
-            /* End gestion box */
-
-            /*  Start selectionner toutes les coures qui sont dans la base de donnée */
-
-
-
-
-            /*  End selectionner toutes les coures qui sont dans la base de donnée */
 
             /* Start gestion fullcalendar */
 
@@ -174,31 +138,25 @@
                 },
 
                 select: function(start, end) {
-                    showbox();
+                    $("#addcour").modal();
+                    $("#labcar").hide();
+                    $("#labconduit").hide();
                     var typecour ="code";
                     $("#save-event").unbind();
                     $("#selectcodeconduit").on('change',function(){
                         var optionSelected = $(this).find("option:selected");
                         typecour  = optionSelected.val();
                         if(typecour === "conduite"){
-                            $("#selectcar").fadeIn(400);
-                            $("#selectcondidatconduite").fadeIn(400);
-                            $("#selectcondidat").fadeOut(400);
-                            $(".select2-container").fadeOut(400);
-                            $("#example-getting-started").fadeIn(400);
-                            $("#selectcondidatcode").fadeOut(400);
-                            $(".sweeta").animate({
-                                height : '+=10px',
-                            },400);
+                            $("#labcar").fadeIn(1000);
+                            $("#labconduit").fadeIn(1000);
+                            $("#condidats").fadeOut(1000);
                         }
                         if(typecour==="code"){
-                            $("#selectcar").fadeOut(400);
-                            $("#selectcondidatconduite").fadeOut(400);
-                            $("#example-getting-started").fadeOut(400);
-                            $("#selectcondidat").fadeIn(400);
-                            $(".select2-container").fadeIn(400);
-                            $("#selectcondidatcode").fadeIn(400);
-                            $(".sweeta").animate({height : '400px'},400);
+                            $("#labcar").fadeOut(1000);
+                            $("#labconduit").fadeOut(1000);
+                            $("#condidats").fadeIn(1000);
+                            var optionselected = $(this).find("option:selected");
+                            typecour = optionselected.val();
                         }
                     });
 
@@ -216,10 +174,9 @@
                         teacher_id = optionselected.val();
                     });
 
-                    $("#save-event").on('click',function(){
+                    $("#save-cour").on('click',function(){
+                        $("#addcour").modal("hide");
                         if (typecour !== "") {
-                            $(".sweet-overlay").fadeOut(100);
-                            $(".sweeta").slideUp(100);
                             eventData = {
                                 title: typecour,
                                 start: start,
@@ -239,7 +196,8 @@
                                     'endtime': end.format(),
                                     '_token': "<?= csrf_token()?>",
                                 }
-                            }else{
+                            }
+                            if(typecour == "code"){
                                 var formDate= {
                                     'type' : typecour,
                                     'client_id':CondidatsId,
@@ -268,19 +226,20 @@
                             },1000);
                         }
                     });
-                    $("#cancel-box").on('click',function(){
-                        $(".sweet-overlay").fadeOut(600);
-                        $(".sweeta").slideUp(300);
-                        $(this).unbind();
-                    });
+
                 },
                 editable: true,
 
                 eventClick: function(event,jsEvent,view){
-                    showcourbox();
+                    if($("#showcour").modal()){
+                        $('.clientsss').empty();
+                        $('.moniteur').empty();
+                        $('.car').empty();
+                    }
 
                     var formDate= {
                         'eventid':event.id,
+                        'type':event.title,
                     }
                     $.ajax({
                         headers: {'X-CSRF-TOKEN': '<?= csrf_token()?>'},
@@ -291,7 +250,7 @@
                         encode:true,
                     }).done(function(data){
                         var tr;
-                        var condidats=[];
+                        var condidats=[],rowmoniteurlist=[],rowcarlist =[];
                         for (var i = 0; i < data.success.length; i++) {
                             tr = $('<tr/>');
                             tr.append("<td>" + data.success[i].id + "</td>");
@@ -304,6 +263,7 @@
                             tr.append("<td>" + data.success[i].type_piece + "</td>");
                             tr.append("<td>" + data.success[i].num_piece + "</td>");
                             $('.clientsss').append(tr);
+
                             // add condidats to pdf table
                             var condidat=[
                                 data.success[i].name,
@@ -317,7 +277,7 @@
                             ];
                             condidats.push(condidat);
                         }
-                        for (var i = 0; i < data.moniteur.length; i++) {
+                        for(var i=0;i<data.moniteur.length;i++) {
                             tr = $('<tr/>');
                             tr.append("<td>" + data.moniteur[i].id + "</td>");
                             tr.append("<td>" + data.moniteur[i].name + "</td>");
@@ -325,7 +285,18 @@
                             tr.append("<td>" + data.moniteur[i].email + "</td>");
                             tr.append("<td>" + data.moniteur[i].telephone + "</td>");
                             $('.moniteur').append(tr);
+
+                            rowmoniteurlist = [
+                                data.moniteur[i].id,
+                                data.moniteur[i].name,
+                                data.moniteur[i].prenom,
+                                data.moniteur[i].email,
+                                data.moniteur[i].telephone
+                            ];
+                            moniteurhome.push(rowmoniteurlist);
+
                         }
+
                         if(data.cour.type=="conduite") {
                             $('.carblock').show();
                             for (var i = 0; i < data.car.length; i++) {
@@ -335,20 +306,28 @@
                                 tr.append("<td>" + data.car[i].matricule + "</td>");
                                 tr.append("<td>" + data.car[i].date_fin_assurence + "</td>");
                                 $('.car').append(tr);
+
+                                rowcarlist = [
+                                    data.car[i].id,
+                                    data.car[i].name,
+                                    data.car[i].matricule,
+                                    data.car[i].date_fin_assurence
+                                ];
+                                vehiculehome.push(rowcarlist);
                             }
                         }
+
                         else{
                             $('.carblock').hide();
                         }
-                        /* print html data to pdf file */
+                        /*---------------------------------------------------------
+                                        Start print html data to pdf file
+                        ------------------------------------------------------------*/
                         var columns = ["First Name", "Last Name", "Email","Date naissance","Telephone","Adress","Type piece","Numero piece"];
-                        var rows = [
-                            [1, "Shaw", "Tanzania",],
-                            [2, "Nelson", "Kazakhstan",],
-                            [3, "Garcia", "Madagascar",],
-                        ];
+                        var colmoniteur = ["#","Nom","Prenom","Email","Telephone"];
+                        var colcar = ["#","Name","Matricule","date fin assurence"];
 
-                        $("#printdata").on('click',function(){
+                        $("#printcour").on('click',function(){
                             var doc = new jsPDF('p', 'pt');
                             doc.autoTable(columns, condidats, {
                                 styles: {
@@ -360,25 +339,41 @@
                                 },
                                 margin: {top: 60},
                                 beforePageContent: function(data) {
-                                    doc.text("Header", 40, 30);
+                                    doc.text("Condidats", 40, 30);
                                 }
                             });
-                            doc.autoTable(columns, rows, {
+                            doc.autoTable(colmoniteur, moniteurhome, {
                                 styles: {fillColor: [100, 255, 255]},
                                 columnStyles: {
                                     id: {fillColor: 255}
                                 },
                                 margin: {top: 200},
                                 beforePageContent: function(data) {
-                                    doc.text("Header", 40, 30);
+                                    doc.text("Enseignant(e) ", 40, 170);
                                 }
                             });
-                            doc.save('table.pdf');
+                            if(data.cour.type=="conduite") {
+                                doc.autoTable(colcar, vehiculehome, {
+                                    styles: {fillColor: [100, 255, 255]},
+                                    columnStyles: {
+                                        id: {fillColor: 255}
+                                    },
+                                    margin: {top: 400},
+                                    beforePageContent: function (data) {
+                                        doc.text("Vehicule", 40, 370);
+                                    }
+                                });
+                            }
+                            doc.save('CourCondidats.pdf');
                         });
                     }).fail(function(data){
                         sweetAlert('Oops...', 'Something went wrong !', 'error');
                         console.log(data);
                     });
+
+                    /*---------------------------------------------------------
+                                End print html data to pdf file
+                     ------------------------------------------------------------*/
                 }
 
 

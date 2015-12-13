@@ -9,12 +9,15 @@ use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
+use Zizaco\Entrust\Traits\EntrustUserTrait;
+use DB;
 
-class User extends Model implements AuthenticatableContract,
-                                    AuthorizableContract,
-                                    CanResetPasswordContract
+class User extends Model implements AuthenticatableContract, CanResetPasswordContract
 {
-    use Authenticatable, Authorizable, CanResetPassword;
+    use Authenticatable, Authorizable, CanResetPassword,
+        EntrustUserTrait {
+        EntrustUserTrait::can insteadof Authorizable;
+    }
 
     /**
      * The database table used by the model.
@@ -37,7 +40,16 @@ class User extends Model implements AuthenticatableContract,
      */
     protected $hidden = ['password', 'remember_token'];
 
-    public function autoecole(){
-        return $this->belongsTo('autoecole\Autoecoletable');
+
+    /**
+     * Detach all roles from a user
+     *
+     * @return object
+     */
+    public function detachAllRoles()
+    {
+        DB::table('role_user')->where('user_id', $this->id)->delete();
+
+        return $this;
     }
 }

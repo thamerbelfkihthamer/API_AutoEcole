@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Validator;
 use Input;
 use Redirect;
 use Illuminate\Support\Facades\DB;
+use autoecole\Role;
 
 class ClientController extends Controller
 {
@@ -33,7 +34,9 @@ class ClientController extends Controller
     public function index()
     {
             $clients = Client::all();
+
             return view ('admin.Client.index',compact('clients'));
+
 
 
     }

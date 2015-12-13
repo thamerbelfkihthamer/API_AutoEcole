@@ -82,10 +82,11 @@ Moniteur - Edit
             @stop
 
             @section('header')
-
+                <link href="{{asset('bower_components/Materialize/dist/css/materialize.css')}}" rel="stylesheet">
             @stop
 
             @section('footer')
+                <script src="{{ asset('bower_components/Materialize/dist/js/materialize.js') }}" type="text/javascript"></script>
                 <script>
                     $(document).ready(function(){
                       $("select").addClass("selectpicker");

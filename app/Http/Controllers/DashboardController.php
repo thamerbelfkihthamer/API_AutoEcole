@@ -2,29 +2,27 @@
 
 namespace autoecole\Http\Controllers;
 
-use autoecole\Moniteur;
 use Illuminate\Http\Request;
+
 use autoecole\Http\Requests;
 use autoecole\Http\Controllers\Controller;
-use Input;
 
-class MoniteurController extends Controller
+class DashboardController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function __construct(){
 
+    public function __construct(){
         $this->middleware('auth');
     }
 
     public function index()
     {
-        //
-        $moniteurs = Moniteur::all();
-        return view('admin.Moniteur.index',compact('moniteurs'));
+        return view('admin.DashBoard.index');
+
     }
 
     /**
@@ -35,7 +33,6 @@ class MoniteurController extends Controller
     public function create()
     {
         //
-        return view('admin.Moniteur.create');
     }
 
     /**
@@ -44,12 +41,9 @@ class MoniteurController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Requests\StoreMoniteurRequest $request)
+    public function store(Request $request)
     {
         //
-        $input = $request->all();
-        Moniteur::create($input);
-        return redirect('moniteur');
     }
 
     /**
@@ -72,8 +66,6 @@ class MoniteurController extends Controller
     public function edit($id)
     {
         //
-        $moniteur = Moniteur::find($id);
-        return view('admin.moniteur.edit',compact('moniteur'));
     }
 
     /**
@@ -83,15 +75,9 @@ class MoniteurController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Requests\StoreMoniteurRequest $request, $id)
+    public function update(Request $request, $id)
     {
         //
-        $data = Input::except('_method', '_token');
-        $moniteur =  Moniteur::find($id);
-
-        $moniteur->update($data);
-        $moniteur->save();
-        return redirect('moniteur');
     }
 
     /**
@@ -103,8 +89,5 @@ class MoniteurController extends Controller
     public function destroy($id)
     {
         //
-        $moniteur = Moniteur::find($id);
-        $moniteur->delete();
-        return redirect('moniteur');
     }
 }

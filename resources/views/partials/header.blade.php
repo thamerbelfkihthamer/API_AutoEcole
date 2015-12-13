@@ -7,7 +7,7 @@
             <ul class="nav navbar-nav navbar-right">
                 @include('partials.modalnotification')
                 @include('partials.notificationlink')
-                <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+                <li><a href="#"><i class="fa fa-power-off"></i></a></li>
             </ul>
         </div>
     </div>

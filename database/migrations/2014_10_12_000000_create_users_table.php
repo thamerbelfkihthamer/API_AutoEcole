@@ -18,6 +18,7 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('password', 60);
             $table->integer('autoecoletable_id');
+            $table->integer('roles_id');
             $table->rememberToken();
             $table->timestamps();
         });
